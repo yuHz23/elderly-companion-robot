@@ -1,0 +1,44 @@
+# Build artifacts
+build/
+dist/
+*.bin
+*.elf
+*.map
+
+# KiCad
+hardware/kicad/*.bak
+hardware/kicad/*.bck
+hardware/kicad/_autosave*
+hardware/kicad/*-cache.lib
+hardware/kicad/*-rescue.lib
+hardware/kicad/autoplace*
+
+# Firmware
+firmware/.pio/
+firmware/.vscode/
+firmware/compile_commands.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets
+config/secrets.h
+config/wifi_config.h
+config/mqtt_config.h
+*.env
+
+# 3D print temp files
+mechanical/3d-models/*.stl
