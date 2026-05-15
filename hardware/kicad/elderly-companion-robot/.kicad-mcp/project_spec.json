@@ -41,18 +41,30 @@
         "C4"
       ],
       "max_distance_mm": 3.0
+    },
+    {
+      "ic_ref": "U7",
+      "cap_refs": [
+        "C6_SIM",
+        "C7_SIM"
+      ],
+      "max_distance_mm": 5.0
     }
   ],
   "critical_nets": [
     "+3V3",
     "+5V",
+    "+4V",
     "VBAT",
     "I2C_SDA",
     "I2C_SCL",
     "I2S_BCLK",
     "I2S_LRCLK",
     "I2S_DOUT",
-    "I2S_DIN"
+    "I2S_DIN",
+    "SIM800L_TX",
+    "SIM800L_RX",
+    "SIM800L_PWRKEY"
   ],
   "power_tree_refs": [],
   "analog_refs": [
@@ -75,29 +87,40 @@
       "current_max_a": 3.0,
       "tolerance_pct": 5.0,
       "source_ref": "",
-      "decoupling_strategy": ""
+      "decoupling_strategy": "bulk"
     },
     {
       "name": "+5V",
       "voltage_v": 5.0,
       "current_max_a": 3.0,
       "tolerance_pct": 5.0,
-      "source_ref": "",
-      "decoupling_strategy": ""
+      "source_ref": "U3",
+      "decoupling_strategy": "bulk"
     },
     {
       "name": "+3V3",
       "voltage_v": 3.3,
       "current_max_a": 0.6,
       "tolerance_pct": 5.0,
-      "source_ref": "",
-      "decoupling_strategy": ""
+      "source_ref": "U5",
+      "decoupling_strategy": "lc_filter"
+    },
+    {
+      "name": "+4V",
+      "voltage_v": 4.0,
+      "current_max_a": 2.0,
+      "tolerance_pct": 5.0,
+      "source_ref": "U7",
+      "decoupling_strategy": "bulk"
     }
   ],
   "interfaces": [
     {
       "kind": "i2c",
-      "refs": [],
+      "refs": [
+        "U_IMU",
+        "U_OLED"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -109,7 +132,9 @@
     },
     {
       "kind": "uart",
-      "refs": [],
+      "refs": [
+        "U_SIM"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -117,23 +142,14 @@
       "length_target_mm": null,
       "length_match_tolerance_mm": 5.0,
       "layer_hint": "",
-      "notes": "TX=GPIO1, RX=GPIO3 to ESP32-CAM"
-    },
-    {
-      "kind": "spi_hs",
-      "refs": [],
-      "net_prefix": "",
-      "impedance_target_ohm": null,
-      "differential": false,
-      "diff_skew_max_ps": null,
-      "length_target_mm": null,
-      "length_match_tolerance_mm": 5.0,
-      "layer_hint": "",
-      "notes": "ESP32-CAM secondary SPI interface"
+      "notes": "UART2: TX=GPIO48, RX=GPIO46, PWRKEY=GPIO47 to SIM800L"
     },
     {
       "kind": "custom",
-      "refs": [],
+      "refs": [
+        "U_MIC",
+        "U_AMP"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -141,11 +157,13 @@
       "length_target_mm": null,
       "length_match_tolerance_mm": 5.0,
       "layer_hint": "",
-      "notes": "BCLK=GPIO14, LRCLK=GPIO12, DOUT=GPIO16(MAX98357A), DIN=GPIO17(INMP441)"
+      "notes": "I2S Audio: BCLK=GPIO14, LRCLK=GPIO12(pull-down), DOUT=GPIO16(MAX98357A), DIN=GPIO17(INMP441)"
     },
     {
       "kind": "custom",
-      "refs": [],
+      "refs": [
+        "U_MOTOR"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -153,11 +171,14 @@
       "length_target_mm": null,
       "length_match_tolerance_mm": 5.0,
       "layer_hint": "",
-      "notes": "ENA=GPIO6, IN1=7, IN2=8, IN3=9, IN4=10, ENB=GPIO11"
+      "notes": "L298N Motor: ENA=GPIO6, IN1=7, IN2=8, IN3=9, IN4=10, ENB=GPIO11"
     },
     {
       "kind": "custom",
-      "refs": [],
+      "refs": [
+        "J_SERVO1",
+        "J_SERVO2"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -165,11 +186,16 @@
       "length_target_mm": null,
       "length_match_tolerance_mm": 5.0,
       "layer_hint": "",
-      "notes": "Pan=GPIO44, Tilt=GPIO45, 50Hz"
+      "notes": "Servo PTZ: Pan=GPIO44, Tilt=GPIO45, 50Hz PWM"
     },
     {
       "kind": "custom",
-      "refs": [],
+      "refs": [
+        "J_US_F",
+        "J_US_B",
+        "J_US_L",
+        "J_US_R"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -177,11 +203,13 @@
       "length_target_mm": null,
       "length_match_tolerance_mm": 5.0,
       "layer_hint": "",
-      "notes": "Front:35/36, Back:37/38, Left:39/40, Right:42/43"
+      "notes": "Ultrasonic: Front(35/36), Back(37/38), Left(39/40), Right(42/43), voltage dividers"
     },
     {
       "kind": "custom",
-      "refs": [],
+      "refs": [
+        "J_IR"
+      ],
       "net_prefix": "",
       "impedance_target_ohm": null,
       "differential": false,
@@ -189,7 +217,7 @@
       "length_target_mm": null,
       "length_match_tolerance_mm": 5.0,
       "layer_hint": "",
-      "notes": "TX=GPIO4, RX=GPIO5"
+      "notes": "IR Dock: TX=GPIO4, RX=GPIO5, 220R series resistor"
     }
   ],
   "mechanical": {
