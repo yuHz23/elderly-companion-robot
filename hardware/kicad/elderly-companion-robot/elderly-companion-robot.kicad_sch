@@ -2,8 +2,264 @@
 	(version 20250316)
 	(generator "kicad-mcp-pro")
 	(uuid "cefbb940-67f1-4699-ab4f-a74da3da98be")
-	(paper "A4")
+	(paper "A2")
 	(lib_symbols)
-	(sheet_instances (path "/" (page "1")))
+	(sheet
+		(at 25.4 25.4)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "28c61be8-f349-4a01-8d59-7913ccd1e630")
+		(property "Sheetname" "Power_Supply"
+			(at 25.4 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power_supply.kicad_sch"
+			(at 25.4 46.3046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/cefbb940-67f1-4699-ab4f-a74da3da98be"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 25.4)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "01b251b7-cd77-48af-98ef-d73ab43609d6")
+		(property "Sheetname" "MCU_Core"
+			(at 152.4 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu_core.kicad_sch"
+			(at 152.4 46.3046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/cefbb940-67f1-4699-ab4f-a74da3da98be"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 279.4 25.4)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b5064c4b-9443-4df2-ac38-332a23a135fe")
+		(property "Sheetname" "Motor_Driver"
+			(at 279.4 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "motor_driver.kicad_sch"
+			(at 279.4 46.3046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/cefbb940-67f1-4699-ab4f-a74da3da98be"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 25.4 177.8)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "e1b59e19-b356-4a3d-b893-fe0974bad805")
+		(property "Sheetname" "Sensors"
+			(at 25.4 177.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sensors.kicad_sch"
+			(at 25.4 198.7046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/cefbb940-67f1-4699-ab4f-a74da3da98be"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 177.8)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "1ee30f41-106f-43d7-ab6e-144769995a2b")
+		(property "Sheetname" "Audio"
+			(at 152.4 177.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio.kicad_sch"
+			(at 152.4 198.7046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/cefbb940-67f1-4699-ab4f-a74da3da98be"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 279.4 177.8)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "adf2834c-2cb2-41de-8d93-8add016c3c0c")
+		(property "Sheetname" "Camera_Dock"
+			(at 279.4 177.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "camera_dock.kicad_sch"
+			(at 279.4 198.7046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/cefbb940-67f1-4699-ab4f-a74da3da98be"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
 	(embedded_fonts no)
 )
