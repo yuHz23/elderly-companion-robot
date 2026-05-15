@@ -1,0 +1,758 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-05-15T12:22:14",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.1",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be",
+            "violations": [
+                {
+                    "description": "Label not connected",
+                    "items": [
+                        {
+                            "description": "Global Label 'VBAT'",
+                            "pos": {
+                                "x": 0.381,
+                                "y": 0.381
+                            },
+                            "uuid": "7fa47b23-2767-4e94-9a23-0f90dd0fd1da"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol J_BAT Pin 1 [Pin_1, Passive, Line]",
+                            "pos": {
+                                "x": 0.2032,
+                                "y": 0.508
+                            },
+                            "uuid": "da28fdab-e297-4113-86c1-fcf9f65de3bd"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol J_BAT Pin 2 [Pin_2, Passive, Line]",
+                            "pos": {
+                                "x": 0.2032,
+                                "y": 0.5334
+                            },
+                            "uuid": "e5f43413-fbbe-467c-b33d-416d9d6dee6c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C1 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.3556
+                            },
+                            "uuid": "6b199973-27c0-4a4d-bec9-ee9ae389c2bb"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C1 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.4064
+                            },
+                            "uuid": "aace9d4f-42b6-4a13-8e4d-2d52f3b21af1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C2 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.6096
+                            },
+                            "uuid": "07cb16fb-c141-4de5-b722-5dcaa3afb3ee"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol J_DOCK Pin 1 [Pin_1, Passive, Line]",
+                            "pos": {
+                                "x": 0.2032,
+                                "y": 0.889
+                            },
+                            "uuid": "53dfac80-282a-47f2-a9d3-c77cd7c4ff22"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C2 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.6604
+                            },
+                            "uuid": "c209db61-7567-407f-815d-3c3f5a099125"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol J_DOCK Pin 2 [Pin_2, Passive, Line]",
+                            "pos": {
+                                "x": 0.2032,
+                                "y": 0.9144
+                            },
+                            "uuid": "8222f26b-6362-4c1c-827a-e8671e9b89af"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol L1 Pin 1 [1, Passive, Line]",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 0.4699
+                            },
+                            "uuid": "1d33590a-d240-427e-83fe-ea4ed25a1179"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol L1 Pin 2 [2, Passive, Line]",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 0.5461
+                            },
+                            "uuid": "1c14c204-bfeb-4179-a3e0-87130d424b66"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR9924 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 0.381,
+                                "y": 1.016
+                            },
+                            "uuid": "1332e294-189e-425c-98c4-a23567351d0d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR9924 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 0.381,
+                                "y": 1.016
+                            },
+                            "uuid": "1332e294-189e-425c-98c4-a23567351d0d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol D1 Pin 1 [K, Passive, Line]",
+                            "pos": {
+                                "x": 0.8509,
+                                "y": 0.762
+                            },
+                            "uuid": "1b361771-7fba-4230-9f9c-fda63d5cfc10"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C5 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 1.016,
+                                "y": 0.5969
+                            },
+                            "uuid": "4990c147-7e57-481f-a798-1177366d7a4a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol D1 Pin 2 [A, Passive, Line]",
+                            "pos": {
+                                "x": 0.9271,
+                                "y": 0.762
+                            },
+                            "uuid": "dec64139-596b-4371-9f2d-02a92558742c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol #PWRd39d Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.143,
+                                "y": 0.381
+                            },
+                            "uuid": "2284863e-99c5-4c86-8205-33d1ced1fb8d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol #PWRd39d Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.143,
+                                "y": 0.381
+                            },
+                            "uuid": "2284863e-99c5-4c86-8205-33d1ced1fb8d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C5 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 1.016,
+                                "y": 0.6731
+                            },
+                            "uuid": "e00ddc39-4444-4dc8-ae40-bf3526d09dd4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C3 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 1.27,
+                                "y": 0.3556
+                            },
+                            "uuid": "795aa7e5-3304-4cc3-bcfa-8b891ba79bcd"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C3 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 1.27,
+                                "y": 0.4064
+                            },
+                            "uuid": "c5c24bfe-52b9-48f2-9d66-234cd326789f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C4 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 1.524,
+                                "y": 0.4699
+                            },
+                            "uuid": "14a026aa-f5c5-4803-adea-69980b3d100b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol C4 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 1.524,
+                                "y": 0.5461
+                            },
+                            "uuid": "7622cdb0-a68e-4235-a6cd-efb7cf84a7a5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR3c00 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.651,
+                                "y": 0.381
+                            },
+                            "uuid": "260e6046-9697-4a19-9e16-541160448f98"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol #PWR3c00 Pin 1 [Power input, Line]",
+                            "pos": {
+                                "x": 1.651,
+                                "y": 0.381
+                            },
+                            "uuid": "260e6046-9697-4a19-9e16-541160448f98"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 8 [CE, Input, Line]",
+                            "pos": {
+                                "x": 1.9304,
+                                "y": 0.4572
+                            },
+                            "uuid": "1f543b5c-bfe8-470f-a1b9-d45428625e7a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 7 [~{CHRG}, Open collector, Line]",
+                            "pos": {
+                                "x": 1.9304,
+                                "y": 0.508
+                            },
+                            "uuid": "6010f607-e39b-44e0-b748-d807cbdf96cd"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 6 [~{STDBY}, Open collector, Line]",
+                            "pos": {
+                                "x": 1.9304,
+                                "y": 0.5334
+                            },
+                            "uuid": "ff3bf065-5d99-4ecf-adb3-63ed680f978f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 4 [V_{CC}, Power input, Line]",
+                            "pos": {
+                                "x": 2.032,
+                                "y": 0.381
+                            },
+                            "uuid": "8d4be2f1-5ecc-4987-a30f-cbb27a22be0d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 9 [EPAD, Passive, Line]",
+                            "pos": {
+                                "x": 2.0066,
+                                "y": 0.635
+                            },
+                            "uuid": "b63f146f-98e3-4140-86d8-f89059bc1608"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 3 [GND, Power input, Line]",
+                            "pos": {
+                                "x": 2.032,
+                                "y": 0.635
+                            },
+                            "uuid": "5cefd47d-78e3-4432-b3ea-5435a4ff79d7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 5 [BAT, Power output, Line]",
+                            "pos": {
+                                "x": 2.1336,
+                                "y": 0.4572
+                            },
+                            "uuid": "70ee012a-6f32-4834-9c5a-9bf46e72a5f1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 1 [TEMP, Input, Line]",
+                            "pos": {
+                                "x": 2.1336,
+                                "y": 0.508
+                            },
+                            "uuid": "b8e9f736-2de0-48cd-b59d-976538581a8e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol U6 Pin 2 [PROG, Passive, Line]",
+                            "pos": {
+                                "x": 2.1336,
+                                "y": 0.5334
+                            },
+                            "uuid": "8f704d8f-df75-4993-91e9-566b5c218279"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol R1 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 2.159,
+                                "y": 0.7239
+                            },
+                            "uuid": "96d073fe-b231-4dde-85ea-9e215c3cd9db"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol R1 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 2.159,
+                                "y": 0.8001
+                            },
+                            "uuid": "4dc13e4e-f6bd-49c6-9275-5dd9d644bd1e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol R2 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 2.159,
+                                "y": 0.9779
+                            },
+                            "uuid": "80734f32-af4b-4636-9bb1-4e336a416806"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol R2 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 2.159,
+                                "y": 1.0541
+                            },
+                            "uuid": "fb8d8000-9d17-4edd-8a10-4616bf779636"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol R3 Pin 1 [Passive, Line]",
+                            "pos": {
+                                "x": 2.159,
+                                "y": 1.1049
+                            },
+                            "uuid": "0be17a65-0695-4a83-bf5a-77b78c432e43"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol R3 Pin 2 [Passive, Line]",
+                            "pos": {
+                                "x": 2.159,
+                                "y": 1.1811
+                            },
+                            "uuid": "ba9bbd50-fd1b-4fa1-b615-f067342d4d65"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol LED1 Pin 1 [K, Passive, Line]",
+                            "pos": {
+                                "x": 2.2606,
+                                "y": 1.016
+                            },
+                            "uuid": "768149c8-9e7a-445e-b6d5-99a084acfd62"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol LED1 Pin 2 [A, Passive, Line]",
+                            "pos": {
+                                "x": 2.3114,
+                                "y": 1.016
+                            },
+                            "uuid": "d048f8c6-b541-49a8-b8a3-068585a5e1c9"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol LED2 Pin 1 [K, Passive, Line]",
+                            "pos": {
+                                "x": 2.2606,
+                                "y": 1.143
+                            },
+                            "uuid": "09be19cb-dfc8-4172-9969-597e10307756"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Pin not connected",
+                    "items": [
+                        {
+                            "description": "Symbol LED2 Pin 2 [A, Passive, Line]",
+                            "pos": {
+                                "x": 2.3114,
+                                "y": 1.143
+                            },
+                            "uuid": "9168517f-941b-4e05-8bd7-a5528b53478b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Symbol 'LM2596S-5' doesn't match copy in library 'Regulator_Switching'",
+                    "items": [
+                        {
+                            "description": "Symbol U3 [LM2596S-5]",
+                            "pos": {
+                                "x": 0.762,
+                                "y": 0.508
+                            },
+                            "uuid": "66a5f06d-b0b8-4792-b907-f9df9879b8db"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                },
+                {
+                    "description": "Symbol 'AP2112K-3.3' doesn't match copy in library 'Regulator_Linear'",
+                    "items": [
+                        {
+                            "description": "Symbol U5 [AP2112K-3.3]",
+                            "pos": {
+                                "x": 1.397,
+                                "y": 0.508
+                            },
+                            "uuid": "eef411c3-c293-4e8d-8802-b226f3820d28"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "lib_symbol_mismatch"
+                }
+            ]
+        },
+        {
+            "path": "/Power_Supply/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be/28c61be8-f349-4a01-8d59-7913ccd1e630",
+            "violations": []
+        },
+        {
+            "path": "/Sensors/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be/e1b59e19-b356-4a3d-b893-fe0974bad805",
+            "violations": []
+        },
+        {
+            "path": "/MCU_Core/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be/01b251b7-cd77-48af-98ef-d73ab43609d6",
+            "violations": []
+        },
+        {
+            "path": "/Audio/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be/1ee30f41-106f-43d7-ab6e-144769995a2b",
+            "violations": []
+        },
+        {
+            "path": "/Motor_Driver/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be/b5064c4b-9443-4df2-ac38-332a23a135fe",
+            "violations": []
+        },
+        {
+            "path": "/Camera_Dock/",
+            "uuid_path": "/cefbb940-67f1-4699-ab4f-a74da3da98be/adf2834c-2cb2-41de-8d93-8add016c3c0c",
+            "violations": []
+        }
+    ],
+    "source": "elderly-companion-robot.kicad_sch"
+}
