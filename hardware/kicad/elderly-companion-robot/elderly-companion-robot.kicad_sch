@@ -2959,6 +2959,14 @@
 			)
 		)
 	)
+	
+	
+	(no_connect (at 50.8 139.7) (uuid "3883d8b5-dc0b-45a4-bbe2-9388ba219f4d"))
+	(wire
+		(pts (xy 45.72 53.34) (xy 71.12 53.34))
+		(stroke (width 0) (type solid))
+		(uuid "431ba26c-0008-4d4a-b04e-b921dff474d1")
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")

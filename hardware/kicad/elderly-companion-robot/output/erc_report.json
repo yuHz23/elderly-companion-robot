@@ -1,7 +1,7 @@
 {
     "$schema": "https://schemas.kicad.org/erc.v1.json",
     "coordinate_units": "mm",
-    "date": "2026-05-16T00:04:03",
+    "date": "2026-05-16T00:21:35",
     "ignored_checks": [
         {
             "description": "Global label only appears once in the schematic",
@@ -40,7 +40,7 @@
                                 "x": 0.508,
                                 "y": 0.3302
                             },
-                            "uuid": "d17b3ae3-0e2b-418c-9be6-bef2533d28da"
+                            "uuid": "0d5d95f4-9ae7-4098-8574-00629d27699f"
                         }
                     ],
                     "severity": "error",
@@ -55,7 +55,7 @@
                                 "x": 0.508,
                                 "y": 0.3302
                             },
-                            "uuid": "d17b3ae3-0e2b-418c-9be6-bef2533d28da"
+                            "uuid": "0d5d95f4-9ae7-4098-8574-00629d27699f"
                         }
                     ],
                     "severity": "error",
@@ -70,7 +70,7 @@
                                 "x": 0.4572,
                                 "y": 0.4826
                             },
-                            "uuid": "51f91118-2fb6-4686-95fd-7226e7cf26ca"
+                            "uuid": "3d9b128c-7b81-436f-9a92-b4ba7f2aa2e4"
                         }
                     ],
                     "severity": "error",
@@ -85,7 +85,7 @@
                                 "x": 0.4572,
                                 "y": 0.508
                             },
-                            "uuid": "e3f9480d-c7e5-4531-b621-1fe9d3d9c8bc"
+                            "uuid": "64c6056c-5d98-4ac6-86dc-a41ca40c2944"
                         }
                     ],
                     "severity": "error",
@@ -100,7 +100,7 @@
                                 "x": 0.4572,
                                 "y": 0.5334
                             },
-                            "uuid": "2d7f8925-83cb-4275-9736-5bf3fbe788d9"
+                            "uuid": "d831dfa3-5a7f-4a2e-8e63-6ff0af701933"
                         }
                     ],
                     "severity": "error",
@@ -115,7 +115,7 @@
                                 "x": 0.762,
                                 "y": 0.3302
                             },
-                            "uuid": "7bf44955-3962-4866-b9be-6a22d4d4f3bf"
+                            "uuid": "2338af6b-e467-40da-9c74-ded6a6aaaeb4"
                         }
                     ],
                     "severity": "error",
@@ -130,7 +130,7 @@
                                 "x": 0.762,
                                 "y": 0.3302
                             },
-                            "uuid": "7bf44955-3962-4866-b9be-6a22d4d4f3bf"
+                            "uuid": "2338af6b-e467-40da-9c74-ded6a6aaaeb4"
                         }
                     ],
                     "severity": "error",
@@ -145,7 +145,7 @@
                                 "x": 0.7112,
                                 "y": 0.4826
                             },
-                            "uuid": "b5a449ab-b8d1-40bf-ab6e-d891e347e9bc"
+                            "uuid": "86cd90c7-5b33-4649-9d20-1cbf489dcf7e"
                         }
                     ],
                     "severity": "error",
@@ -160,7 +160,7 @@
                                 "x": 0.7112,
                                 "y": 0.508
                             },
-                            "uuid": "7efe91ea-ca21-48db-bdb8-a7c6d513e5dc"
+                            "uuid": "45c60009-25f8-4b86-a173-8f60aed2c1bd"
                         }
                     ],
                     "severity": "error",
@@ -175,7 +175,7 @@
                                 "x": 0.7112,
                                 "y": 0.5334
                             },
-                            "uuid": "95e0a828-857a-4291-b239-5ea548cc4826"
+                            "uuid": "23f9e385-05f1-4266-8bc0-c745a759c578"
                         }
                     ],
                     "severity": "error",
@@ -190,7 +190,7 @@
                                 "x": 0.508,
                                 "y": 0.8636
                             },
-                            "uuid": "c1fea60b-3ad8-45b1-a1b2-1fddb548d966"
+                            "uuid": "cd2bbfd0-75f0-4145-90fc-1b12584f5305"
                         }
                     ],
                     "severity": "error",
@@ -205,7 +205,7 @@
                                 "x": 0.508,
                                 "y": 0.8636
                             },
-                            "uuid": "c1fea60b-3ad8-45b1-a1b2-1fddb548d966"
+                            "uuid": "cd2bbfd0-75f0-4145-90fc-1b12584f5305"
                         }
                     ],
                     "severity": "error",
@@ -220,7 +220,7 @@
                                 "x": 1.016,
                                 "y": 0.3302
                             },
-                            "uuid": "e26d68eb-c5e4-4ea9-ac1f-100470179051"
+                            "uuid": "fca2a23b-efe6-40e2-9a77-fe74259957d7"
                         }
                     ],
                     "severity": "error",
@@ -235,7 +235,7 @@
                                 "x": 1.016,
                                 "y": 0.3302
                             },
-                            "uuid": "e26d68eb-c5e4-4ea9-ac1f-100470179051"
+                            "uuid": "fca2a23b-efe6-40e2-9a77-fe74259957d7"
                         }
                     ],
                     "severity": "error",
@@ -250,7 +250,7 @@
                                 "x": 1.016,
                                 "y": 0.4699
                             },
-                            "uuid": "f9f4ec68-9a85-4a76-b499-ff8b5cf74786"
+                            "uuid": "6aed06b1-90bf-4ee9-a8d6-169fd90c498f"
                         }
                     ],
                     "severity": "error",
@@ -265,7 +265,7 @@
                                 "x": 1.016,
                                 "y": 0.5461
                             },
-                            "uuid": "02cfc52f-d212-48bc-bf52-d1b15f2160e8"
+                            "uuid": "6c1d582b-d17c-4639-8011-5dfde5c4c7f4"
                         }
                     ],
                     "severity": "error",
@@ -310,7 +310,7 @@
                                 "x": 1.2192,
                                 "y": 0.4826
                             },
-                            "uuid": "c73c41b6-f9d1-47bc-8f89-4fe430c71b63"
+                            "uuid": "5bb6f928-344b-4296-88cd-8bf9f8e0f0e5"
                         }
                     ],
                     "severity": "error",
@@ -325,7 +325,7 @@
                                 "x": 1.2192,
                                 "y": 0.508
                             },
-                            "uuid": "8cf3404d-633c-4af5-b854-5e8a2deed2c4"
+                            "uuid": "e40d6f1f-71f2-4d76-ac2b-93e17181d7fe"
                         }
                     ],
                     "severity": "error",
@@ -340,7 +340,7 @@
                                 "x": 1.2192,
                                 "y": 0.5334
                             },
-                            "uuid": "eb635577-217c-498e-814c-56518c9ff441"
+                            "uuid": "b4ebb978-4fb4-4ec7-b1c5-2f685191bf2b"
                         }
                     ],
                     "severity": "error",
@@ -370,7 +370,7 @@
                                 "x": 1.4732,
                                 "y": 0.508
                             },
-                            "uuid": "672cd2e8-0d5b-4b3d-a044-9f78113fb611"
+                            "uuid": "09267cd7-0bd3-4bea-99f2-272a3c69e7a4"
                         }
                     ],
                     "severity": "error",
@@ -385,7 +385,7 @@
                                 "x": 1.4732,
                                 "y": 0.5334
                             },
-                            "uuid": "36a3ce4e-5e31-4726-8320-08126a35a008"
+                            "uuid": "dee2f923-6a87-4433-8c75-59fe4f39832e"
                         }
                     ],
                     "severity": "error",
@@ -415,7 +415,7 @@
                                 "x": 1.5748,
                                 "y": 0.7874
                             },
-                            "uuid": "56aae536-69a1-443c-aa39-853a9d1fc151"
+                            "uuid": "01248b69-fc2d-4af5-a4b2-cebca0d0abb3"
                         }
                     ],
                     "severity": "error",
@@ -430,7 +430,7 @@
                                 "x": 1.5748,
                                 "y": 0.8128
                             },
-                            "uuid": "093b9718-b8f5-4415-aa74-b750a2709d12"
+                            "uuid": "d4a98531-19ae-4b65-ba3d-c66004c2fe9c"
                         }
                     ],
                     "severity": "error",
@@ -445,7 +445,7 @@
                                 "x": 1.5748,
                                 "y": 0.8382
                             },
-                            "uuid": "a1b2ef8c-8972-4458-982c-5265a613c723"
+                            "uuid": "5dfab5bb-6a7c-411e-b8bc-a517d45d714a"
                         }
                     ],
                     "severity": "error",
@@ -460,7 +460,7 @@
                                 "x": 1.7272,
                                 "y": 0.4826
                             },
-                            "uuid": "b75b0458-3459-45c8-93d6-b27a3ed7e69c"
+                            "uuid": "d414d624-a773-47d2-b444-76fe7e245913"
                         }
                     ],
                     "severity": "error",
@@ -475,7 +475,7 @@
                                 "x": 1.5748,
                                 "y": 0.8636
                             },
-                            "uuid": "1f3b5f55-c686-4302-b050-d47ef8f7f259"
+                            "uuid": "c8a948bd-018a-4bb3-b33f-99fbc9838783"
                         }
                     ],
                     "severity": "error",
@@ -490,7 +490,7 @@
                                 "x": 1.7272,
                                 "y": 0.508
                             },
-                            "uuid": "36fd530c-4058-495d-9019-57d9e041fdf7"
+                            "uuid": "1aa21903-7bcc-469f-8585-a9c8cd243f98"
                         }
                     ],
                     "severity": "error",
@@ -505,7 +505,7 @@
                                 "x": 1.7272,
                                 "y": 0.5334
                             },
-                            "uuid": "5f5fe113-872c-463a-af3d-b6e7e68d2964"
+                            "uuid": "16a9eca2-8497-4ab7-b01c-57aa2ad88e35"
                         }
                     ],
                     "severity": "error",
@@ -520,7 +520,7 @@
                                 "x": 1.5748,
                                 "y": 0.889
                             },
-                            "uuid": "d72ff0e0-8224-4775-8a56-d49713b15d1a"
+                            "uuid": "a6b6f195-95aa-4b99-b690-bebf17757ab8"
                         }
                     ],
                     "severity": "error",
@@ -535,7 +535,7 @@
                                 "x": 1.7272,
                                 "y": 0.5588
                             },
-                            "uuid": "9ce5b33c-77c7-441e-b622-afba315d2774"
+                            "uuid": "80a470b2-f987-450e-86c0-1cf5e05b431b"
                         }
                     ],
                     "severity": "error",
@@ -550,7 +550,7 @@
                                 "x": 1.778,
                                 "y": 0.381
                             },
-                            "uuid": "dde37a65-192f-4c48-ba69-33f8e9f92e12"
+                            "uuid": "b2c12db4-6777-4ad1-804d-1b0565cafe48"
                         }
                     ],
                     "severity": "error",
@@ -565,7 +565,7 @@
                                 "x": 1.5748,
                                 "y": 0.9144
                             },
-                            "uuid": "e138c3d9-8334-4ded-bf2b-e3adfb4167d2"
+                            "uuid": "42080d0e-3581-4d15-aa62-ae2cc4eb6cca"
                         }
                     ],
                     "severity": "error",
@@ -580,7 +580,7 @@
                                 "x": 1.5748,
                                 "y": 0.9398
                             },
-                            "uuid": "7e48c73b-d513-45a3-ae9c-3f5ac86996c6"
+                            "uuid": "c01ea1ca-dacb-4e24-ad51-f6a6f5c255d3"
                         }
                     ],
                     "severity": "error",
@@ -610,7 +610,7 @@
                                 "x": 1.5748,
                                 "y": 0.9906
                             },
-                            "uuid": "e9b94059-3b01-4a79-82c2-301bf819929e"
+                            "uuid": "a7442aeb-8836-4afd-a400-da9ae28b280b"
                         }
                     ],
                     "severity": "error",
@@ -625,7 +625,7 @@
                                 "x": 1.5748,
                                 "y": 1.016
                             },
-                            "uuid": "7f3fa0f9-b205-43e9-8216-c8d25813dcc8"
+                            "uuid": "d98f5a5a-4813-4da1-ad82-1c80de7d85aa"
                         }
                     ],
                     "severity": "error",
@@ -640,7 +640,7 @@
                                 "x": 1.7272,
                                 "y": 0.7366
                             },
-                            "uuid": "3ba91cf6-6acd-4d3b-97b4-265457579be0"
+                            "uuid": "0839111c-0a8b-456d-9243-0aa2f6e0ad52"
                         }
                     ],
                     "severity": "error",
@@ -655,7 +655,7 @@
                                 "x": 1.5748,
                                 "y": 1.0668
                             },
-                            "uuid": "59ded143-c809-47f6-9727-44c00a3fafd2"
+                            "uuid": "02f33536-00c6-44ba-bc22-6aed3f823116"
                         }
                     ],
                     "severity": "error",
@@ -670,7 +670,7 @@
                                 "x": 1.778,
                                 "y": 0.7366
                             },
-                            "uuid": "0a0524dc-87e5-4683-8029-4e6b1942d38e"
+                            "uuid": "ab0f9404-2da8-45e4-a132-54fb74081013"
                         }
                     ],
                     "severity": "error",
@@ -685,7 +685,7 @@
                                 "x": 1.5748,
                                 "y": 1.1176
                             },
-                            "uuid": "d27065be-462c-4848-9d5e-66b58c2b7f04"
+                            "uuid": "ac807b2b-e640-450a-9a6a-86b0c962718f"
                         }
                     ],
                     "severity": "error",
@@ -700,7 +700,7 @@
                                 "x": 1.8288,
                                 "y": 0.7366
                             },
-                            "uuid": "343c40d4-c9ff-42c9-abdf-fdd5a609b075"
+                            "uuid": "2f861a0e-1aad-4913-9f5d-c888396ad3e1"
                         }
                     ],
                     "severity": "error",
@@ -715,7 +715,7 @@
                                 "x": 1.5748,
                                 "y": 1.2192
                             },
-                            "uuid": "4b5c426a-1fe4-4d0f-b98a-5b50de471b65"
+                            "uuid": "2cd760ad-ad50-40d6-9432-5b1bde3c33b8"
                         }
                     ],
                     "severity": "error",
@@ -730,7 +730,7 @@
                                 "x": 1.5748,
                                 "y": 1.2446
                             },
-                            "uuid": "597bb37e-0e5f-4ecc-aecd-4af8b9385418"
+                            "uuid": "3fc9e99d-aca4-45fe-8eeb-e6f9e2c9007c"
                         }
                     ],
                     "severity": "error",
@@ -760,7 +760,7 @@
                                 "x": 1.9812,
                                 "y": 0.7874
                             },
-                            "uuid": "32bc4dcf-5166-44e4-9fa0-8171e29b860e"
+                            "uuid": "7007576c-ecbf-4fe8-bb8a-ac0d7a7755fa"
                         }
                     ],
                     "severity": "error",
@@ -775,7 +775,7 @@
                                 "x": 1.9812,
                                 "y": 0.8128
                             },
-                            "uuid": "9fed94bd-ec7a-441b-afb3-b197e6c38d98"
+                            "uuid": "66310706-9117-4e1e-a16b-3f7c252fec76"
                         }
                     ],
                     "severity": "error",
@@ -790,7 +790,7 @@
                                 "x": 1.9812,
                                 "y": 0.8382
                             },
-                            "uuid": "b0c66954-c461-4ce8-9a35-44821bbc759b"
+                            "uuid": "e708775d-c451-4c02-8d12-bb1af3b57e4c"
                         }
                     ],
                     "severity": "error",
@@ -805,7 +805,7 @@
                                 "x": 1.9812,
                                 "y": 0.889
                             },
-                            "uuid": "20d97a42-4fb2-4009-847f-48defdc2b304"
+                            "uuid": "41452456-808b-4700-b395-949a1b1eeb62"
                         }
                     ],
                     "severity": "error",
@@ -820,7 +820,7 @@
                                 "x": 1.9812,
                                 "y": 0.9144
                             },
-                            "uuid": "6f2a6627-be50-4279-b78b-42afdf6f02c5"
+                            "uuid": "caa9a186-9fee-449b-9827-c1b3801c2d90"
                         }
                     ],
                     "severity": "error",
@@ -835,7 +835,7 @@
                                 "x": 1.9812,
                                 "y": 0.9398
                             },
-                            "uuid": "dbe4fd6d-0752-4fb4-adb2-59ce234e94b0"
+                            "uuid": "811dafd9-b211-408a-a94d-a22fb5194568"
                         }
                     ],
                     "severity": "error",
@@ -850,7 +850,7 @@
                                 "x": 1.778,
                                 "y": 1.2954
                             },
-                            "uuid": "e88f3ff6-070e-4e13-a807-afdae2d93b3d"
+                            "uuid": "00976db0-22d1-478d-b9a7-2fa7a8b2d84a"
                         }
                     ],
                     "severity": "error",
@@ -865,7 +865,7 @@
                                 "x": 2.032,
                                 "y": 0.8509
                             },
-                            "uuid": "cf904545-86dc-48ad-a6d7-fb74d9218c94"
+                            "uuid": "f8c4472a-6f6f-4ea2-8b37-1165813aee28"
                         }
                     ],
                     "severity": "error",
@@ -880,7 +880,7 @@
                                 "x": 1.9812,
                                 "y": 0.9652
                             },
-                            "uuid": "744cf3c5-b827-4b49-9f91-301590762bba"
+                            "uuid": "fcafe827-21a0-476c-b225-a158213e3336"
                         }
                     ],
                     "severity": "error",
@@ -895,7 +895,7 @@
                                 "x": 1.9812,
                                 "y": 0.9906
                             },
-                            "uuid": "7bdb7cdb-7ada-474e-b540-5f0ed5332bc6"
+                            "uuid": "d135ad4c-cc7b-4fc6-bbb7-c525398fa203"
                         }
                     ],
                     "severity": "error",
@@ -910,7 +910,7 @@
                                 "x": 2.032,
                                 "y": 0.9271
                             },
-                            "uuid": "866c5408-cc02-4cd0-9f8f-e29668232d4b"
+                            "uuid": "b81f0e3d-b824-4bf9-9495-fcbea49ee85d"
                         }
                     ],
                     "severity": "error",
@@ -925,7 +925,7 @@
                                 "x": 1.9812,
                                 "y": 1.0414
                             },
-                            "uuid": "8c4e7083-b4ac-443c-a393-b368d3edd05f"
+                            "uuid": "ecb77d1b-ccc8-443e-bd1d-ec0e20009323"
                         }
                     ],
                     "severity": "error",
@@ -940,7 +940,7 @@
                                 "x": 1.9812,
                                 "y": 1.0668
                             },
-                            "uuid": "dc3fdd11-44ab-43b0-95db-6e6ed18c7b7d"
+                            "uuid": "33b2939e-d12e-4fee-8fcc-80028279c508"
                         }
                     ],
                     "severity": "error",
@@ -955,7 +955,7 @@
                                 "x": 2.032,
                                 "y": 0.9906
                             },
-                            "uuid": "2593136b-afe0-4adb-99ab-5ab2700ebc92"
+                            "uuid": "d2ccebe8-18f7-462c-b799-9b52a3638b88"
                         }
                     ],
                     "severity": "error",
@@ -970,7 +970,7 @@
                                 "x": 1.9812,
                                 "y": 1.0922
                             },
-                            "uuid": "e961697f-c704-4902-97b1-1e361ad19c62"
+                            "uuid": "e359ef89-4f8b-4b06-bca0-c6ff4b814329"
                         }
                     ],
                     "severity": "error",
@@ -985,7 +985,7 @@
                                 "x": 1.9812,
                                 "y": 1.143
                             },
-                            "uuid": "f07e98e3-998f-4e0f-94f4-974947cc39cb"
+                            "uuid": "6c6b61ea-8b86-444c-8018-7f3572d155b6"
                         }
                     ],
                     "severity": "error",
@@ -1000,7 +1000,7 @@
                                 "x": 1.9812,
                                 "y": 1.1684
                             },
-                            "uuid": "d6675639-03ff-4c2b-bf44-8db4ec6a0de0"
+                            "uuid": "7a11dc44-cded-47ec-9410-4bfd25be00d5"
                         }
                     ],
                     "severity": "error",
@@ -1015,7 +1015,7 @@
                                 "x": 1.9812,
                                 "y": 1.2192
                             },
-                            "uuid": "50b6d072-0c67-4ebb-8cf7-7d0c44ce2e0b"
+                            "uuid": "15604796-6e35-46a0-a35e-1f240b04784e"
                         }
                     ],
                     "severity": "error",
@@ -1030,7 +1030,7 @@
                                 "x": 1.9812,
                                 "y": 1.2446
                             },
-                            "uuid": "927285db-0930-43df-bf15-bda16cd43958"
+                            "uuid": "ceb16dbf-a093-4118-a1a9-dd3bfb207846"
                         }
                     ],
                     "severity": "error",
