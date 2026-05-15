@@ -1,0 +1,219 @@
+{
+  "connector_refs": [
+    "J_CAM",
+    "J_SERVO1",
+    "J_SERVO2",
+    "J_MOTOR_L",
+    "J_MOTOR_R",
+    "J_US_F",
+    "J_US_B",
+    "J_US_L",
+    "J_US_R",
+    "J_MIC",
+    "J_SPK",
+    "J_DOCK",
+    "J_OLED",
+    "J_BAT",
+    "J_IMU"
+  ],
+  "decoupling_pairs": [
+    {
+      "ic_ref": "U1",
+      "cap_refs": [
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "max_distance_mm": 3.0
+    },
+    {
+      "ic_ref": "U3",
+      "cap_refs": [
+        "C1",
+        "C2"
+      ],
+      "max_distance_mm": 3.0
+    },
+    {
+      "ic_ref": "U5",
+      "cap_refs": [
+        "C3",
+        "C4"
+      ],
+      "max_distance_mm": 3.0
+    }
+  ],
+  "critical_nets": [
+    "+3V3",
+    "+5V",
+    "VBAT",
+    "I2C_SDA",
+    "I2C_SCL",
+    "I2S_BCLK",
+    "I2S_LRCLK",
+    "I2S_DOUT",
+    "I2S_DIN"
+  ],
+  "power_tree_refs": [],
+  "analog_refs": [
+    "U_MIC"
+  ],
+  "digital_refs": [
+    "U1"
+  ],
+  "sensor_cluster_refs": [],
+  "rf_keepout_regions": [],
+  "manufacturer": "JLCPCB",
+  "manufacturer_tier": "standard",
+  "functional_spacing_mm": 5.0,
+  "thermal_hotspots": [],
+  "critical_frequencies_mhz": [],
+  "power_rails": [
+    {
+      "name": "VBAT",
+      "voltage_v": 11.1,
+      "current_max_a": 3.0,
+      "tolerance_pct": 5.0,
+      "source_ref": "",
+      "decoupling_strategy": ""
+    },
+    {
+      "name": "+5V",
+      "voltage_v": 5.0,
+      "current_max_a": 3.0,
+      "tolerance_pct": 5.0,
+      "source_ref": "",
+      "decoupling_strategy": ""
+    },
+    {
+      "name": "+3V3",
+      "voltage_v": 3.3,
+      "current_max_a": 0.6,
+      "tolerance_pct": 5.0,
+      "source_ref": "",
+      "decoupling_strategy": ""
+    }
+  ],
+  "interfaces": [
+    {
+      "kind": "i2c",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "MPU6050 (0x68) + SSD1306 (0x3C), 4.7K pull-ups to 3.3V"
+    },
+    {
+      "kind": "uart",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "TX=GPIO1, RX=GPIO3 to ESP32-CAM"
+    },
+    {
+      "kind": "spi_hs",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "ESP32-CAM secondary SPI interface"
+    },
+    {
+      "kind": "custom",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "BCLK=GPIO14, LRCLK=GPIO12, DOUT=GPIO16(MAX98357A), DIN=GPIO17(INMP441)"
+    },
+    {
+      "kind": "custom",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "ENA=GPIO6, IN1=7, IN2=8, IN3=9, IN4=10, ENB=GPIO11"
+    },
+    {
+      "kind": "custom",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "Pan=GPIO44, Tilt=GPIO45, 50Hz"
+    },
+    {
+      "kind": "custom",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "Front:35/36, Back:37/38, Left:39/40, Right:42/43"
+    },
+    {
+      "kind": "custom",
+      "refs": [],
+      "net_prefix": "",
+      "impedance_target_ohm": null,
+      "differential": false,
+      "diff_skew_max_ps": null,
+      "length_target_mm": null,
+      "length_match_tolerance_mm": 5.0,
+      "layer_hint": "",
+      "notes": "TX=GPIO4, RX=GPIO5"
+    }
+  ],
+  "mechanical": {
+    "outline_dxf_path": "",
+    "board_width_mm": null,
+    "board_height_mm": null,
+    "mount_holes": [],
+    "connector_placement": [],
+    "max_height_mm": null,
+    "enclosure_step_path": "",
+    "notes": ""
+  },
+  "compliance": [],
+  "cost": {
+    "unit_cost_usd_max": null,
+    "volume_units": 1,
+    "nre_budget_usd": null,
+    "prefer_jlcpcb_basic_parts": false
+  },
+  "thermal": {
+    "ambient_c": 25.0,
+    "max_component_c": 85.0,
+    "airflow": "natural",
+    "ambient_airflow_m_s": null,
+    "thermal_resistance_target_c_per_w": null
+  }
+}
