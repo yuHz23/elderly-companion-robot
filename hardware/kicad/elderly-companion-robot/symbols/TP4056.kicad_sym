@@ -1,0 +1,43 @@
+(kicad_symbol_lib
+	(version 20250316)
+	(generator "kicad-mcp-symbol-gen")
+	(symbol "TP4056"
+		(pin_names (offset 1.016))
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "TP4056"
+			(at 0 -2.54 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Package_SO:SOP-8_3.9x4.9mm_P1.27mm"
+			(at 0 -5.08 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" ""
+			(at 0 -7.62 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "TP4056 Li-Ion Battery Charger IC, 1A CC/CV, SOP-8"
+			(at 0 -10.16 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "TP4056_1_1"
+			(rectangle (start -5.0800 6.3500) (end 5.0800 -6.3500) (stroke (width 0)(type default)) (fill (type background)))
+		)
+		(symbol "TP4056_1_2"
+			(pin input line (at -7.6200 3.8100 0) (length 2.5400) (name "TEMP" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+			(pin passive line (at -7.6200 1.2700 0) (length 2.5400) (name "PROG" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+			(pin power_in line (at -7.6200 -1.2700 0) (length 2.5400) (name "GND" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+			(pin output line (at -7.6200 -3.8100 0) (length 2.5400) (name "CHRG" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+			(pin output line (at 7.6200 3.8100 180) (length 2.5400) (name "STDBY" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
+			(pin power_out line (at 7.6200 1.2700 180) (length 2.5400) (name "BAT" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+			(pin input line (at 7.6200 -1.2700 180) (length 2.5400) (name "CE" (effects (font (size 1.27 1.27)))) (number "7" (effects (font (size 1.27 1.27)))))
+			(pin power_in line (at 7.6200 -3.8100 180) (length 2.5400) (name "VCC" (effects (font (size 1.27 1.27)))) (number "8" (effects (font (size 1.27 1.27)))))
+		)
+	)
+)
