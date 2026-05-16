@@ -1,9 +1,149 @@
 (kicad_sch
 	(version 20250114)
 	(generator "eeschema")
+	(generator_version "9.0")
 	(uuid "c36de3c5-b687-4fec-904a-65628fe048ca")
 	(paper "A4")
 	(lib_symbols
+	(symbol "power:+3V3"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#PWR"
+			(at 0 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 0 3.556 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "global power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "+3V3_0_1"
+			(polyline
+				(pts
+					(xy -0.762 1.27) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0.762 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 2.54)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "+3V3_1_1"
+			(pin power_in line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
 	(symbol "power:GND"
 		(power global)
 		(pin_numbers
@@ -1718,6 +1858,251 @@
 		(at 25.4 96.52 180)
 		(effects (font (size 1.524 1.524)))
 		(uuid "de96265f-8706-4b11-8124-ed6dc724be6f")
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 50.8 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7a2354b8-55d7-484b-9ce0-46326472c386")
+		(property "Reference" "#PWR3f77"
+			(at 50.8 62.23 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+5V"
+			(at 50.8 63.5 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/4df18afa-6300-4e30-8425-a36b74deadc2"
+					(reference "#PWR3f77") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 76.2 38.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "669c90c8-8915-43c3-9136-4a2564070f2f")
+		(property "Reference" "#PWR25e6"
+			(at 76.2 31.75 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 76.2 33.02 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 76.2 38.1 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 76.2 38.1 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/d9fcf0f2-e47a-435c-a687-ceb3313aee18"
+					(reference "#PWR25e6") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 50.8 25.4 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "16d1478d-76c5-4b7c-bf58-60341861b603")
+		(property "Reference" "#PWR14a6"
+			(at 50.8 31.75 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 50.8 30.48 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 25.4 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 25.4 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/d9c6cb88-2fe3-4b29-b416-8258e6ea7698"
+					(reference "#PWR14a6") (unit 1)
+				)
+			)
+		)
+	)
+	(label "MOTOR_ENA"
+		(at 30.48 33.02 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "23bb4a3c-8454-4c2b-a6b5-4f3559bbde36")
+	)
+	(label "MOTOR_IN1"
+		(at 30.48 63.5 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "4d438840-f5f0-489f-b670-46b0e74d7d40")
+	)
+	(label "MOTOR_IN2"
+		(at 30.48 58.42 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1374df15-8052-46fd-a892-8405a3d21f54")
+	)
+	(label "MOTOR_IN3"
+		(at 30.48 60.96 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "a951b6b3-8473-4044-b4c0-737b7fcf2c13")
+	)
+	(label "MOTOR_IN4"
+		(at 30.48 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "473b2663-6869-4e9c-a3b7-dc455c7dde09")
+	)
+	(label "MOTOR_ENB"
+		(at 30.48 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "a11cf0bf-bfd3-48b8-b38e-62afebe62166")
+	)
+	(label "MOTOR_IN1"
+		(at 35.56 63.5 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "7233f6e8-d66b-4311-bcf5-f1f76fb62b2b")
+	)
+	(label "MOTOR_IN2"
+		(at 35.56 60.96 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "0cf2b9f5-a9ce-45e0-af58-f3f965740403")
+	)
+	(label "MOTOR_IN3"
+		(at 35.56 53.34 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "bdc02f2d-69a4-4058-856a-7601646e7fec")
+	)
+	(label "MOTOR_IN4"
+		(at 35.56 50.8 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1e523b0f-19e6-4449-a323-22550fbe0ee6")
+	)
+	(label "MOTOR_ENA"
+		(at 35.56 58.42 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "5675f0d8-cf95-4b02-ad3a-9040a99958c0")
+	)
+	(label "MOTOR_ENB"
+		(at 35.56 48.26 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "682f570a-8c54-41a6-ac38-0ab8e4e81f30")
+	)
+	(label "MOTORA_1"
+		(at 66.04 55.88 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "71e5d464-5879-46b7-bf5f-f6f95abea801")
+	)
+	(label "MOTORA_2"
+		(at 66.04 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "21726e5c-b7f2-400d-bbaa-eefb90f0cfd9")
+	)
+	(label "MOTORB_1"
+		(at 66.04 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "3dd01fff-8fa3-4885-b1db-ade9ca55d951")
+	)
+	(label "MOTORB_2"
+		(at 66.04 45.72 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "d7a3d472-f40b-48e3-9f3a-e6f54ed1733e")
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 53.34 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6a83bd21-a2a5-403e-97a9-e1ab8c57de25")
+		(property "Reference" "#PWRf70d"
+			(at 53.34 62.23 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+5V"
+			(at 53.34 63.5 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 53.34 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 53.34 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/31d9b13f-5923-4cd5-9096-a5c3c0de11a9"
+					(reference "#PWRf70d") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 50.8 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "799dcaa0-9280-47ed-8e98-e32780fa7ecb")
+		(property "Reference" "#PWR77bf"
+			(at 50.8 39.37 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 50.8 38.1 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 33.02 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 33.02 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/9a39cfae-f152-4277-b696-2ad675101116"
+					(reference "#PWR77bf") (unit 1)
+				)
+			)
+		)
 	)
 	(sheet_instances
 		(path "/"

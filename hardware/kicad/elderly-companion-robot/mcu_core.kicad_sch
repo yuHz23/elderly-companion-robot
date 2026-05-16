@@ -1,6 +1,7 @@
 (kicad_sch
 	(version 20250114)
 	(generator "eeschema")
+	(generator_version "9.0")
 	(uuid "edfaaffb-5426-41f9-a7fe-2e06a4de2e70")
 	(paper "A4")
 	(lib_symbols
@@ -2546,6 +2547,553 @@
 		(at 254 99.06 0)
 		(effects (font (size 1.524 1.524)))
 		(uuid "a34f95ad-d6bb-489d-808f-18ccbcd5429f")
+	)
+	(label "I2C_SDA"
+		(at 33.02 35.56 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "6778593a-43d3-4925-af9e-e86359a3075f")
+	)
+	(label "I2C_SCL"
+		(at 33.02 33.02 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "0eb8fe76-b5b8-4170-b6cd-cb13600bfdf6")
+	)
+	(label "I2S_BCLK"
+		(at 33.02 43.18 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "69ae8e49-55a3-478d-8013-3ea9f46d9b24")
+	)
+	(label "I2S_LRCLK"
+		(at 33.02 38.1 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1c165df6-0c20-4467-be4f-f1b00718bd3a")
+	)
+	(label "I2S_DOUT"
+		(at 33.02 27.94 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "737346f2-d310-46da-b79c-63dac02d46e4")
+	)
+	(label "I2S_DIN"
+		(at 33.02 48.26 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "4800b83f-75fa-4682-b8e7-d7760cc89eb8")
+	)
+	(label "MOTOR_ENA"
+		(at 33.02 53.34 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "db3495b0-9162-4bce-bfec-1a384a4a508b")
+	)
+	(label "MOTOR_IN1"
+		(at 33.02 50.8 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "08b58ede-1be4-4c4d-9e49-aae3ee5583e3")
+	)
+	(label "MOTOR_IN2"
+		(at 33.02 48.26 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "eaed8c4a-65e7-4806-a242-bdecdddf5f66")
+	)
+	(label "MOTOR_IN3"
+		(at 33.02 45.72 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "5fb0f2e9-608c-4ce7-a9c1-3f86647e30e8")
+	)
+	(label "MOTOR_IN4"
+		(at 33.02 43.18 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "5edc928d-70f1-42e5-bed2-c1c79508ca93")
+	)
+	(label "MOTOR_ENB"
+		(at 33.02 38.1 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "c524d4f3-afac-42c1-9948-c95fa63b1067")
+	)
+	(label "IR_TX"
+		(at 33.02 58.42 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "f8cfefec-f333-4be2-95a9-807595ea4e73")
+	)
+	(label "IR_RX"
+		(at 33.02 55.88 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "6f63df5b-2c90-4ae3-82b9-65249a4e3ff7")
+	)
+	(label "SERVO_PAN"
+		(at 68.58 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "97ed1b7a-e7e9-4b6e-89fe-ce3d6137f7eb")
+	)
+	(label "SERVO_TILT"
+		(at 68.58 45.72 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "344137ca-2131-4cd0-a9ac-2b1843d4b191")
+	)
+	(label "UART2_TX"
+		(at 68.58 38.1 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "5e5937d8-8a7a-46fa-94dc-7aa5be64d521")
+	)
+	(label "UART2_RX"
+		(at 68.58 33.02 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1f6e3cf2-3ea3-486b-bc9d-76c11cf13230")
+	)
+	(label "SIM_PWRKEY"
+		(at 68.58 40.64 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "b77b32d7-66f4-4d9d-9807-b684bac9433a")
+	)
+	(label "US_FRONT_TRIG"
+		(at 68.58 30.48 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "7f822c23-fe23-465a-8291-b364790299ae")
+	)
+	(label "US_FRONT_ECHO"
+		(at 68.58 27.94 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "354df7ce-def7-489a-a8a2-11f1113566b4")
+	)
+	(label "US_BACK_TRIG"
+		(at 68.58 35.56 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e599c0a7-b5d3-4e7d-838f-9490673a2ddd")
+	)
+	(label "US_BACK_ECHO"
+		(at 68.58 68.58 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "736bbc97-a8c2-4dc8-b7e6-a3d7a5e3fb02")
+	)
+	(label "IR_TX"
+		(at 35.56 58.42 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "02e4d942-9dfa-4060-a988-a9b7fd350a04")
+	)
+	(label "IR_RX"
+		(at 35.56 55.88 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "28c15a59-2815-4fd2-aaaa-d1b0520f49e2")
+	)
+	(label "MOTOR_ENA"
+		(at 35.56 53.34 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1111e1a8-62b6-47c3-9da0-c1b71538e6cc")
+	)
+	(label "MOTOR_IN1"
+		(at 35.56 50.8 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "046aca0d-85c9-4494-9a74-00a6e0d9911c")
+	)
+	(label "MOTOR_IN2"
+		(at 35.56 48.26 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "de879ac8-cdf8-445a-b869-32bb05b83530")
+	)
+	(label "MOTOR_IN3"
+		(at 35.56 45.72 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "974d3a13-cb68-4c56-a92a-662bdca9a081")
+	)
+	(label "MOTOR_IN4"
+		(at 35.56 43.18 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "402d3da3-fdf9-471c-8502-f4e562f64caa")
+	)
+	(label "MOTOR_ENB"
+		(at 35.56 40.64 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "f484ea19-1eb7-4cc9-8b49-84c777581a44")
+	)
+	(label "I2S_DOUT"
+		(at 35.56 27.94 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "76f5a0bf-393f-498b-b227-0e8346f34abc")
+	)
+	(label "I2S_LRCLK"
+		(at 35.56 38.1 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "b6361547-2f95-4e4d-893c-59070b67ca2f")
+	)
+	(label "I2S_BCLK"
+		(at 35.56 33.02 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "17255e65-09dd-4de5-aa38-e7960c1a5bbc")
+	)
+	(label "I2C_SCL"
+		(at 35.56 63.5 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e0306162-a659-472a-a088-1ada0cb0ade6")
+	)
+	(label "I2C_SDA"
+		(at 66.04 58.42 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "db810437-33f7-43da-bb50-21c60fc02a52")
+	)
+	(label "I2S_DIN"
+		(at 66.04 68.58 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "c0e4f940-922e-4d12-af38-8501f32e6da6")
+	)
+	(label "US_FRONT_TRIG"
+		(at 66.04 55.88 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "8df642a3-e613-41c9-a5d5-7b6ec9556126")
+	)
+	(label "US_FRONT_ECHO"
+		(at 66.04 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "fc7477f4-0ad9-4c89-b780-5cc1aa5cc4a7")
+	)
+	(label "US_BACK_TRIG"
+		(at 66.04 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1f7d5ca2-da5e-4248-b50d-295be469da7f")
+	)
+	(label "US_BACK_ECHO"
+		(at 66.04 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "c8713e94-e9a6-4a98-8d24-e7d412ce8b45")
+	)
+	(label "US_LEFT_TRIG"
+		(at 66.04 45.72 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "86e0f707-0fc0-4b1d-a53d-0e857b8437d6")
+	)
+	(label "US_LEFT_ECHO"
+		(at 66.04 43.18 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "50392e65-be41-47a8-8235-75ac166b8f66")
+	)
+	(label "US_RIGHT_TRIG"
+		(at 66.04 40.64 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "519a492e-d282-4dda-b3a5-99989caf0146")
+	)
+	(label "US_RIGHT_ECHO"
+		(at 66.04 38.1 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "099315a3-9bd1-4424-8cfc-8afb0c3a5a65")
+	)
+	(label "SERVO_PAN"
+		(at 66.04 35.56 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "c87674d9-ebb2-4654-93be-2e552c752a97")
+	)
+	(label "SERVO_TILT"
+		(at 66.04 35.56 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e8dd5baa-3a95-48b6-ad21-159b012f1d28")
+	)
+	(label "SERVO_PAN"
+		(at 66.04 38.1 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "32647859-8cb2-4a42-80f3-698526befb26")
+	)
+	(label "UART2_RX"
+		(at 66.04 33.02 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "52cfff43-8ea0-46f5-a705-7f2cde28301e")
+	)
+	(label "SIM_PWRKEY"
+		(at 66.04 30.48 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "ea149ec3-7e61-429c-8130-a7aa96dadd31")
+	)
+	(label "UART2_TX"
+		(at 66.04 27.94 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "5853460a-b4a7-4d5d-bbec-f2a8402c434e")
+	)
+	(label "EN"
+		(at 35.56 73.66 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "57e5df8f-f7d1-4de0-ae28-145fab2e8a6a")
+	)
+	(label "BOOT"
+		(at 35.56 68.58 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "130eb45a-340a-4aa7-ae9e-9176b4d9bbb1")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 50.8 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "500191c3-9185-4f64-8589-d207f9ade5a9")
+		(property "Reference" "#PWR92c7"
+			(at 50.8 72.39 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 50.8 73.66 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 78.74 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 78.74 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/80b9d3f5-e4a0-4a90-a684-4edd986d4232"
+					(reference "#PWR92c7") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 50.8 22.86 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "069ee6fb-1f87-450c-b7a6-09ecbf8bf204")
+		(property "Reference" "#PWR9d53"
+			(at 50.8 29.21 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 50.8 27.94 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 22.86 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 22.86 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/5b763823-5f37-4734-80e9-68ac6e11740c"
+					(reference "#PWR9d53") (unit 1)
+				)
+			)
+		)
+	)
+	(hierarchical_label "US_LEFT_TRIG"
+		(shape input)
+		(at 279.4 152.4 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "455496a2-f502-412e-b457-f53eb8667cf9")
+	)
+	(hierarchical_label "US_LEFT_ECHO"
+		(shape input)
+		(at 279.4 157.48 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "58f52c16-996c-446c-8364-442cdd601587")
+	)
+	(hierarchical_label "US_RIGHT_TRIG"
+		(shape output)
+		(at 279.4 162.56 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "01b282d6-51e6-475f-b5ed-e80c3d65dc15")
+	)
+	(hierarchical_label "US_RIGHT_ECHO"
+		(shape input)
+		(at 279.4 167.64 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "ca53d2cc-b6b4-4f1b-be62-9624dcfb34de")
+	)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	(junction (at 50.8 73.66)
+		(diameter 0)
+		(uuid "eb94a5bb-fb69-4767-8130-ae343ae09d40")
+	)
+	
+	
+	
+	
+	
+	
+	
+	(symbol
+		(lib_id "power:+3V3")
+		(at 76.2 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4ba159a6-fc24-4500-909a-ce8a3f88522e")
+		(property "Reference" "#PWR73cd"
+			(at 76.2 57.15 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 76.2 58.42 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 76.2 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 76.2 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/fa72e58a-96b5-467d-b94c-a710fb6dca40"
+					(reference "#PWR73cd") (unit 1)
+				)
+			)
+		)
+	)
+	
+	
+	
+	
+	
+	(symbol
+		(lib_id "power:+3V3")
+		(at 101.6 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4f1ebe5f-edf3-4063-b439-0368c159708d")
+		(property "Reference" "#PWRcec7"
+			(at 101.6 57.15 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 101.6 58.42 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 101.6 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 101.6 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/27bfeb75-2860-4b9b-8a42-e7a7af64410d"
+					(reference "#PWRcec7") (unit 1)
+				)
+			)
+		)
+	)
+	
+	
+	
+	
+	
+	(symbol
+		(lib_id "power:GND")
+		(at 50.8 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "31031084-3c18-4f54-8aff-fcda0f9e0172")
+		(property "Reference" "#PWR75e5"
+			(at 50.8 69.85 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 50.8 68.58 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/470727a9-b62e-4f86-aabe-c529a88e5fa5"
+					(reference "#PWR75e5") (unit 1)
+				)
+			)
+		)
+	)
+	
+	
+	
+	
+	
+	(symbol
+		(lib_id "power:GND")
+		(at 127 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "19d5d6d5-4f9b-4a9e-9dea-ed63c2c56079")
+		(property "Reference" "#PWR4fba"
+			(at 127 69.85 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 127 68.58 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 127 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 127 63.5 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/4f9298ab-d9d9-4f08-8c4c-507e6ca8a69f"
+					(reference "#PWR4fba") (unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 35.56 68.58) (xy 101.6 68.58))
+		(stroke (width 0) (type solid))
+		(uuid "866e52ca-29e2-4214-ac59-2b3caf8150ed")
+	)
+	(wire
+		(pts (xy 35.56 73.66) (xy 76.2 73.66))
+		(stroke (width 0) (type solid))
+		(uuid "c14c1aa8-5b41-47c2-bbf6-f8c41fea8fb6")
+	)
+	(wire
+		(pts (xy 50.8 71.12) (xy 50.8 73.66))
+		(stroke (width 0) (type solid))
+		(uuid "c4156e80-fb26-447a-8b92-d5b37f801d2b")
+	)
+	(wire
+		(pts (xy 76.2 71.12) (xy 76.2 73.66))
+		(stroke (width 0) (type solid))
+		(uuid "016f3690-fa2d-44a4-bfa6-8ced280ad476")
+	)
+	(wire
+		(pts (xy 101.6 68.58) (xy 101.6 71.12))
+		(stroke (width 0) (type solid))
+		(uuid "4c0131da-ba78-4c3e-ab25-0b743aa7eeb7")
 	)
 	(sheet_instances
 		(path "/"

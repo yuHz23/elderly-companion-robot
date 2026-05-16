@@ -1,6 +1,7 @@
 (kicad_sch
 	(version 20250114)
 	(generator "eeschema")
+	(generator_version "9.0")
 	(uuid "7bef2cda-fd77-47a8-a45c-f357c8347a65")
 	(paper "A4")
 	(lib_symbols
@@ -2532,6 +2533,74 @@
 		(at 25.4 177.8 180)
 		(effects (font (size 1.524 1.524)))
 		(uuid "cad1f51d-b6a3-414b-90c6-73392eb4ef4f")
+	)
+	(label "UART2_RX"
+		(at 30.48 60.96 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "561c6f0f-39be-4cb9-a0b0-5411672fc843")
+	)
+	(label "UART2_TX"
+		(at 30.48 58.42 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1bd575ec-eaad-42ce-944c-9fe92e8bedf3")
+	)
+	(label "SIM_PWRKEY"
+		(at 30.48 45.72 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "32a8471e-5f8e-465b-9f51-08884fa4385c")
+	)
+	(symbol
+		(lib_id "power:+4V")
+		(at 55.88 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "00d5373c-ab0a-4b4b-a0ab-d8a24be17214")
+		(property "Reference" "#PWR92f4"
+			(at 55.88 72.39 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+4V"
+			(at 55.88 73.66 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 55.88 78.74 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 55.88 78.74 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/55cdf11a-726b-4d96-98bb-530726b7b167"
+					(reference "#PWR92f4") (unit 1)
+				)
+			)
+		)
+	)
+	(label "SERVO_PAN"
+		(at 71.12 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "5bf20bf6-eb81-4b6d-b66d-0f7de24a6eed")
+	)
+	(label "SERVO_TILT"
+		(at 71.12 45.72 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "216128e8-21b7-4d69-92cf-d9ca5c30f0c3")
+	)
+	(label "IR_TX"
+		(at 127 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "2f2d2e7d-1488-40e1-9141-3725770eb1ce")
+	)
+	(label "IR_RX"
+		(at 152.4 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e0977c09-dc33-4228-837a-2100d0361604")
 	)
 	(sheet_instances
 		(path "/"

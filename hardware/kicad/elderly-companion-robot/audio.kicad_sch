@@ -1,6 +1,7 @@
 (kicad_sch
 	(version 20250114)
 	(generator "eeschema")
+	(generator_version "9.0")
 	(uuid "fc98cc44-3635-4dfd-b70b-72f81702d15b")
 	(paper "A4")
 	(lib_symbols
@@ -1919,6 +1920,299 @@
 		(at 25.4 114.3 180)
 		(effects (font (size 1.524 1.524)))
 		(uuid "63916e84-2f57-4c68-851a-4902f8e3ed6d")
+	)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	(junction (at 71.12 53.34)
+		(diameter 0)
+		(uuid "a9915b13-39f2-4cd4-b06a-2b6547d3f4ae")
+	)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	(junction (at 71.12 55.88)
+		(diameter 0)
+		(uuid "7237a6c9-9500-4410-afec-4492cd38e309")
+	)
+	(junction (at 96.52 55.88)
+		(diameter 0)
+		(uuid "94935332-ba96-4c6e-8c0d-148f1379970b")
+	)
+	(label "I2S_DOUT"
+		(at 73.66 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "07248aaa-dc8a-45a7-a610-79230833d868")
+	)
+	
+	
+	
+	
+	
+	(label "I2S_DIN"
+		(at 73.66 63.5 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1d04b354-71a1-4d9f-8ef1-e4c0749f2800")
+	)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	(label "+5V"
+		(at 71.12 35.56 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e5f4520e-e1bc-4e79-882c-9b6e3f44ae94")
+	)
+	
+	
+	
+	
+	
+	
+	(label "+3V3"
+		(at 71.12 63.5 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "699dee81-0533-4d6f-9a7b-4e6e58802a80")
+	)
+	
+	
+	
+	
+	
+	
+	(label "GND"
+		(at 71.12 139.7 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "3f2415b9-b425-4d2b-b38d-49a0c60318c8")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_DOUT"
+		(at 38.1 58.42 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "91cd575e-0241-4b77-b14b-cbdcbd337119")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_LRCLK"
+		(at 38.1 53.34 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "d5121e87-efba-406d-b226-307f2948c92e")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_BCLK"
+		(at 38.1 55.88 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e1d4ec10-1d01-4686-b59f-d9ec9fe9c0af")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_DIN"
+		(at 38.1 45.72 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "06c3b58b-ff5b-41db-beea-2d36814ba290")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_DIN"
+		(at 71.12 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "72d618d7-d6ba-496e-99bd-d5068b911fa0")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_BCLK"
+		(at 71.12 55.88 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "335b34be-7049-47af-a5f4-fe5bc73de097")
+	)
+	
+	
+	
+	
+	
+	
+	(label "I2S_LRCLK"
+		(at 71.12 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "33765157-3f11-49cc-ac20-358d774caaca")
+	)
+	
+	
+	
+	
+	
+	
+	(symbol
+		(lib_id "power:+3V3")
+		(at 71.12 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d18a56de-8dcc-454f-9f57-8ac2f1ec73e9")
+		(property "Reference" "#PWRf031"
+			(at 71.12 39.37 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 71.12 40.64 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 71.12 45.72 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 71.12 45.72 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/325b14b3-5b6b-4ebf-9147-f3f960e0337e"
+					(reference "#PWRf031") (unit 1)
+				)
+			)
+		)
+	)
+	
+	
+	
+	
+	
+	
+	(symbol
+		(lib_id "power:GND")
+		(at 71.12 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f89f2d10-7e00-43a2-a875-eb6575d20cf1")
+		(property "Reference" "#PWR4b09"
+			(at 71.12 49.53 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 71.12 48.26 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 71.12 43.18 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 71.12 43.18 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/d531ab51-ca87-4987-8efe-123157564a06"
+					(reference "#PWR4b09") (unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 71.12 45.72) (xy 203.2 45.72))
+		(stroke (width 0) (type solid))
+		(uuid "04fb97cd-0c65-44e6-a0f1-58979d775bd3")
+	)
+	(wire
+		(pts (xy 38.1 53.34) (xy 71.12 53.34))
+		(stroke (width 0) (type solid))
+		(uuid "29fc4afe-37a6-4b63-8ddc-97ce56030f86")
+	)
+	(wire
+		(pts (xy 38.1 55.88) (xy 203.2 55.88))
+		(stroke (width 0) (type solid))
+		(uuid "82f4fb4b-f92d-4574-8721-0c38121616b9")
+	)
+	(wire
+		(pts (xy 63.5 58.42) (xy 96.52 58.42))
+		(stroke (width 0) (type solid))
+		(uuid "7fb62d5a-743b-4b00-ae43-5590ac8894de")
+	)
+	(wire
+		(pts (xy 71.12 50.8) (xy 71.12 55.88))
+		(stroke (width 0) (type solid))
+		(uuid "dd8bdccc-9704-484e-9fc6-28fff80fa654")
+	)
+	(wire
+		(pts (xy 96.52 48.26) (xy 96.52 58.42))
+		(stroke (width 0) (type solid))
+		(uuid "d5335a29-e366-4850-94cb-c92ade55ce42")
 	)
 	(sheet_instances
 		(path "/"

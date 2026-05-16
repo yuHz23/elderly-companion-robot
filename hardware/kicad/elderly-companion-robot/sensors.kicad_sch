@@ -1,6 +1,7 @@
 (kicad_sch
 	(version 20250114)
 	(generator "eeschema")
+	(generator_version "9.0")
 	(uuid "eaff5faa-64c0-42c0-955f-78668e3ff22c")
 	(paper "A4")
 	(lib_symbols
@@ -1983,6 +1984,213 @@
 		(at 25.4 160.02 180)
 		(effects (font (size 1.524 1.524)))
 		(uuid "1ba03621-7c8b-4660-b96b-6f231cf9f8bb")
+	)
+	(label "I2C_SDA"
+		(at 33.02 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "ced0aa22-0df2-4fed-b143-1163e8969204")
+	)
+	(label "I2C_SCL"
+		(at 33.02 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "c5685c88-8c75-4563-a7a2-dfd596a01a6b")
+	)
+	(label "US_FRONT_TRIG"
+		(at 228.6 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1011fc7f-d78a-4edc-841f-0a813595f251")
+	)
+	(label "US_FRONT_ECHO"
+		(at 228.6 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "2ceda7c3-7f50-4ea8-add4-9aba630cbcb6")
+	)
+	(label "US_BACK_TRIG"
+		(at 228.6 55.88 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "cf9043d5-ff7b-42f9-9b02-a52cd03e5dcc")
+	)
+	(label "US_BACK_ECHO"
+		(at 228.6 58.42 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e9dd2899-81a7-4112-8436-e641f6040fe4")
+	)
+	(label "US_LEFT_TRIG"
+		(at 228.6 60.96 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "f8159b11-a642-4956-bf5f-91308d24a065")
+	)
+	(label "US_LEFT_ECHO"
+		(at 228.6 63.5 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "3515eb14-23bb-496d-93a4-4d09aa9387aa")
+	)
+	(label "US_RIGHT_TRIG"
+		(at 228.6 66.04 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "32394042-485b-42db-8928-9178864ba891")
+	)
+	(label "US_RIGHT_ECHO"
+		(at 228.6 68.58 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "c1b2945b-2500-4265-9e8e-caabe956c4f8")
+	)
+	(label "I2C_SDA"
+		(at 33.02 55.88 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "b8f2ea04-bf8e-4459-acac-45af525480f8")
+	)
+	(label "I2C_SCL"
+		(at 33.02 58.42 180)
+		(effects (font (size 1.524 1.524)))
+		(uuid "95e7cbff-73a6-449d-8ea5-b1d64bbb6dd5")
+	)
+	(label "I2C_SDA"
+		(at 66.04 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "23a88bb6-fc7c-4c21-9137-b86f9e57fbd6")
+	)
+	(label "I2C_SCL"
+		(at 66.04 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "af4044a9-ae20-41fb-919a-6cf03517abcd")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 53.34 68.58 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a1f45a82-40fc-4857-be35-231b76777442")
+		(property "Reference" "#PWR6dc5"
+			(at 53.34 62.23 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 53.34 63.5 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 53.34 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 53.34 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/283ca26f-9a41-46d2-95bb-5d1a536a2b24"
+					(reference "#PWR6dc5") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 50.8 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f8784095-4ebd-4b88-9658-55e401461c26")
+		(property "Reference" "#PWRc250"
+			(at 50.8 39.37 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 50.8 38.1 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 50.8 33.02 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 50.8 33.02 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/81283502-27c4-4593-b87b-c992e6ede747"
+					(reference "#PWRc250") (unit 1)
+				)
+			)
+		)
+	)
+	(label "GND"
+		(at 33.02 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "0e91de6d-acab-4391-b7c5-56109ecd50a1")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 76.2 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9aeead3f-d0f8-4835-a697-d97a9a8ff661")
+		(property "Reference" "#PWR71c8"
+			(at 76.2 54.61 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "+3V3"
+			(at 76.2 55.88 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 76.2 60.96 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 76.2 60.96 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/2103488b-35f4-4549-a884-6fbd35386922"
+					(reference "#PWR71c8") (unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 76.2 40.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "69c3ed0f-0e54-490e-a06d-84b6c2762dd5")
+		(property "Reference" "#PWR325c"
+			(at 76.2 46.99 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Value" "GND"
+			(at 76.2 45.72 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" ""
+			(at 76.2 40.64 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "~"
+			(at 76.2 40.64 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(instances
+			(project "elderly-companion-robot"
+				(path "/d9b3e4cb-0194-49a0-9adc-b000a62645e2"
+					(reference "#PWR325c") (unit 1)
+				)
+			)
+		)
 	)
 	(sheet_instances
 		(path "/"
