@@ -1593,11 +1593,19 @@
 			(at 101.6 72.39 0)
 			(effects (font (size 1.27 1.27)))
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "0402"
 			(at 101.6 68.58 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
 		(property "Datasheet" "~"
+			(at 101.6 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "LCSC" "C1525"
+			(at 101.6 68.58 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "MPN" "CL05B104KO5NNNC"
 			(at 101.6 68.58 0)
 			(effects (font (size 1.27 1.27)) (hide yes))
 		)
