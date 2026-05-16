@@ -1,6 +1,6 @@
 (kicad_sch
-	(version 20250316)
-	(generator "kicad-mcp-pro")
+	(version 20250114)
+	(generator "eeschema")
 	(uuid "edfaaffb-5426-41f9-a7fe-2e06a4de2e70")
 	(paper "A4")
 	(lib_symbols
