@@ -2548,271 +2548,6 @@
 		(effects (font (size 1.524 1.524)))
 		(uuid "a34f95ad-d6bb-489d-808f-18ccbcd5429f")
 	)
-	(label "I2C_SDA"
-		(at 33.02 35.56 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "6778593a-43d3-4925-af9e-e86359a3075f")
-	)
-	(label "I2C_SCL"
-		(at 33.02 33.02 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "0eb8fe76-b5b8-4170-b6cd-cb13600bfdf6")
-	)
-	(label "I2S_BCLK"
-		(at 33.02 43.18 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "69ae8e49-55a3-478d-8013-3ea9f46d9b24")
-	)
-	(label "I2S_LRCLK"
-		(at 33.02 38.1 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "1c165df6-0c20-4467-be4f-f1b00718bd3a")
-	)
-	(label "I2S_DOUT"
-		(at 33.02 27.94 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "737346f2-d310-46da-b79c-63dac02d46e4")
-	)
-	(label "I2S_DIN"
-		(at 33.02 48.26 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "4800b83f-75fa-4682-b8e7-d7760cc89eb8")
-	)
-	(label "MOTOR_ENA"
-		(at 33.02 53.34 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "db3495b0-9162-4bce-bfec-1a384a4a508b")
-	)
-	(label "MOTOR_IN1"
-		(at 33.02 50.8 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "08b58ede-1be4-4c4d-9e49-aae3ee5583e3")
-	)
-	(label "MOTOR_IN2"
-		(at 33.02 48.26 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "eaed8c4a-65e7-4806-a242-bdecdddf5f66")
-	)
-	(label "MOTOR_IN3"
-		(at 33.02 45.72 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "5fb0f2e9-608c-4ce7-a9c1-3f86647e30e8")
-	)
-	(label "MOTOR_IN4"
-		(at 33.02 43.18 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "5edc928d-70f1-42e5-bed2-c1c79508ca93")
-	)
-	(label "MOTOR_ENB"
-		(at 33.02 38.1 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "c524d4f3-afac-42c1-9948-c95fa63b1067")
-	)
-	(label "IR_TX"
-		(at 33.02 58.42 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "f8cfefec-f333-4be2-95a9-807595ea4e73")
-	)
-	(label "IR_RX"
-		(at 33.02 55.88 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "6f63df5b-2c90-4ae3-82b9-65249a4e3ff7")
-	)
-	(label "SERVO_PAN"
-		(at 68.58 48.26 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "97ed1b7a-e7e9-4b6e-89fe-ce3d6137f7eb")
-	)
-	(label "SERVO_TILT"
-		(at 68.58 45.72 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "344137ca-2131-4cd0-a9ac-2b1843d4b191")
-	)
-	(label "UART2_TX"
-		(at 68.58 38.1 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "5e5937d8-8a7a-46fa-94dc-7aa5be64d521")
-	)
-	(label "UART2_RX"
-		(at 68.58 33.02 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "1f6e3cf2-3ea3-486b-bc9d-76c11cf13230")
-	)
-	(label "SIM_PWRKEY"
-		(at 68.58 40.64 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "b77b32d7-66f4-4d9d-9807-b684bac9433a")
-	)
-	(label "US_FRONT_TRIG"
-		(at 68.58 30.48 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "7f822c23-fe23-465a-8291-b364790299ae")
-	)
-	(label "US_FRONT_ECHO"
-		(at 68.58 27.94 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "354df7ce-def7-489a-a8a2-11f1113566b4")
-	)
-	(label "US_BACK_TRIG"
-		(at 68.58 35.56 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "e599c0a7-b5d3-4e7d-838f-9490673a2ddd")
-	)
-	(label "US_BACK_ECHO"
-		(at 68.58 68.58 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "736bbc97-a8c2-4dc8-b7e6-a3d7a5e3fb02")
-	)
-	(label "IR_TX"
-		(at 35.56 58.42 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "02e4d942-9dfa-4060-a988-a9b7fd350a04")
-	)
-	(label "IR_RX"
-		(at 35.56 55.88 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "28c15a59-2815-4fd2-aaaa-d1b0520f49e2")
-	)
-	(label "MOTOR_ENA"
-		(at 35.56 53.34 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "1111e1a8-62b6-47c3-9da0-c1b71538e6cc")
-	)
-	(label "MOTOR_IN1"
-		(at 35.56 50.8 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "046aca0d-85c9-4494-9a74-00a6e0d9911c")
-	)
-	(label "MOTOR_IN2"
-		(at 35.56 48.26 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "de879ac8-cdf8-445a-b869-32bb05b83530")
-	)
-	(label "MOTOR_IN3"
-		(at 35.56 45.72 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "974d3a13-cb68-4c56-a92a-662bdca9a081")
-	)
-	(label "MOTOR_IN4"
-		(at 35.56 43.18 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "402d3da3-fdf9-471c-8502-f4e562f64caa")
-	)
-	(label "MOTOR_ENB"
-		(at 35.56 40.64 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "f484ea19-1eb7-4cc9-8b49-84c777581a44")
-	)
-	(label "I2S_DOUT"
-		(at 35.56 27.94 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "76f5a0bf-393f-498b-b227-0e8346f34abc")
-	)
-	(label "I2S_LRCLK"
-		(at 35.56 38.1 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "b6361547-2f95-4e4d-893c-59070b67ca2f")
-	)
-	(label "I2S_BCLK"
-		(at 35.56 33.02 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "17255e65-09dd-4de5-aa38-e7960c1a5bbc")
-	)
-	(label "I2C_SCL"
-		(at 35.56 63.5 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "e0306162-a659-472a-a088-1ada0cb0ade6")
-	)
-	(label "I2C_SDA"
-		(at 66.04 58.42 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "db810437-33f7-43da-bb50-21c60fc02a52")
-	)
-	(label "I2S_DIN"
-		(at 66.04 68.58 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "c0e4f940-922e-4d12-af38-8501f32e6da6")
-	)
-	(label "US_FRONT_TRIG"
-		(at 66.04 55.88 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "8df642a3-e613-41c9-a5d5-7b6ec9556126")
-	)
-	(label "US_FRONT_ECHO"
-		(at 66.04 53.34 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "fc7477f4-0ad9-4c89-b780-5cc1aa5cc4a7")
-	)
-	(label "US_BACK_TRIG"
-		(at 66.04 50.8 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "1f7d5ca2-da5e-4248-b50d-295be469da7f")
-	)
-	(label "US_BACK_ECHO"
-		(at 66.04 48.26 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "c8713e94-e9a6-4a98-8d24-e7d412ce8b45")
-	)
-	(label "US_LEFT_TRIG"
-		(at 66.04 45.72 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "86e0f707-0fc0-4b1d-a53d-0e857b8437d6")
-	)
-	(label "US_LEFT_ECHO"
-		(at 66.04 43.18 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "50392e65-be41-47a8-8235-75ac166b8f66")
-	)
-	(label "US_RIGHT_TRIG"
-		(at 66.04 40.64 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "519a492e-d282-4dda-b3a5-99989caf0146")
-	)
-	(label "US_RIGHT_ECHO"
-		(at 66.04 38.1 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "099315a3-9bd1-4424-8cfc-8afb0c3a5a65")
-	)
-	(label "SERVO_PAN"
-		(at 66.04 35.56 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "c87674d9-ebb2-4654-93be-2e552c752a97")
-	)
-	(label "SERVO_TILT"
-		(at 66.04 35.56 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "e8dd5baa-3a95-48b6-ad21-159b012f1d28")
-	)
-	(label "SERVO_PAN"
-		(at 66.04 38.1 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "32647859-8cb2-4a42-80f3-698526befb26")
-	)
-	(label "UART2_RX"
-		(at 66.04 33.02 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "52cfff43-8ea0-46f5-a705-7f2cde28301e")
-	)
-	(label "SIM_PWRKEY"
-		(at 66.04 30.48 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "ea149ec3-7e61-429c-8130-a7aa96dadd31")
-	)
-	(label "UART2_TX"
-		(at 66.04 27.94 0)
-		(effects (font (size 1.524 1.524)))
-		(uuid "5853460a-b4a7-4d5d-bbec-f2a8402c434e")
-	)
-	(label "EN"
-		(at 35.56 73.66 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "57e5df8f-f7d1-4de0-ae28-145fab2e8a6a")
-	)
-	(label "BOOT"
-		(at 35.56 68.58 180)
-		(effects (font (size 1.524 1.524)))
-		(uuid "130eb45a-340a-4aa7-ae9e-9176b4d9bbb1")
-	)
 	(symbol
 		(lib_id "power:+3V3")
 		(at 50.8 78.74 0)
@@ -3070,30 +2805,320 @@
 			)
 		)
 	)
-	(wire
-		(pts (xy 35.56 68.58) (xy 101.6 68.58))
-		(stroke (width 0) (type solid))
-		(uuid "866e52ca-29e2-4214-ac59-2b3caf8150ed")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	(label "I2S_DOUT"
+		(at 38.1 27.94 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "76b46207-3b90-406b-ade8-f79e866a491d")
 	)
-	(wire
-		(pts (xy 35.56 73.66) (xy 76.2 73.66))
-		(stroke (width 0) (type solid))
-		(uuid "c14c1aa8-5b41-47c2-bbf6-f8c41fea8fb6")
+	(label "I2S_BCLK"
+		(at 38.1 33.02 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "3becbfce-525e-4f38-86c3-5acca2dd2ec0")
 	)
-	(wire
-		(pts (xy 50.8 71.12) (xy 50.8 73.66))
-		(stroke (width 0) (type solid))
-		(uuid "c4156e80-fb26-447a-8b92-d5b37f801d2b")
+	(label "I2S_LRCLK"
+		(at 38.1 38.1 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "a6c85c50-e12a-4bf2-b278-9895e530b5bc")
 	)
-	(wire
-		(pts (xy 76.2 71.12) (xy 76.2 73.66))
-		(stroke (width 0) (type solid))
-		(uuid "016f3690-fa2d-44a4-bfa6-8ced280ad476")
+	(label "MOTOR_ENB"
+		(at 38.1 40.64 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "d5aed278-0a4c-4a05-8e29-413ce7e2bb22")
 	)
-	(wire
-		(pts (xy 101.6 68.58) (xy 101.6 71.12))
-		(stroke (width 0) (type solid))
-		(uuid "4c0131da-ba78-4c3e-ab25-0b743aa7eeb7")
+	(label "MOTOR_IN4"
+		(at 38.1 43.18 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "ce31e5e4-168f-46f0-b29f-b70e752f66b2")
+	)
+	(label "MOTOR_IN3"
+		(at 38.1 45.72 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "d578b519-98d8-45a4-834f-d6f9882fe568")
+	)
+	(label "MOTOR_IN2"
+		(at 38.1 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "fe8c06f4-6aa6-4878-bc4c-16a489c3efe8")
+	)
+	(label "MOTOR_IN1"
+		(at 38.1 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "bdcfc702-8e7b-47d5-a037-6ede0361f92d")
+	)
+	(label "MOTOR_ENA"
+		(at 38.1 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "d1026bb5-559b-4350-850f-59107644d8d9")
+	)
+	(label "IR_RX"
+		(at 38.1 55.88 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "6ab33902-cf95-4f4c-84a7-84a29c4296a9")
+	)
+	(label "IR_TX"
+		(at 38.1 58.42 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "b27b369a-4853-4dd4-ac99-4556155e3fcf")
+	)
+	(label "I2C_SCL"
+		(at 38.1 63.5 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "8cad92d2-6ee8-48fe-928b-29650790542c")
+	)
+	(label "BOOT"
+		(at 38.1 68.58 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "971b312b-35eb-4be3-a404-979521b2b64b")
+	)
+	(label "EN"
+		(at 38.1 73.66 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "872f8888-71a4-4b86-b4a1-a24c291799ef")
+	)
+	(label "UART2_TX"
+		(at 63.5 27.94 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "1266bcc4-38c5-442b-8e9f-31b22b256d19")
+	)
+	(label "SIM_PWRKEY"
+		(at 63.5 30.48 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e1477b31-4fbd-4468-9752-9da28a90a697")
+	)
+	(label "UART2_RX"
+		(at 63.5 33.02 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "3ec11704-a3c4-44d2-b008-61974b46d761")
+	)
+	(label "SERVO_TILT"
+		(at 63.5 35.56 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "7f42092e-483f-4be0-939d-d02d82de406f")
+	)
+	(label "SERVO_PAN"
+		(at 63.5 38.1 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "0248f2df-62bb-496e-a790-06986862fff9")
+	)
+	(label "US_RIGHT_TRIG"
+		(at 63.5 40.64 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "9acc829b-a88d-4592-97f3-55a3f73b0317")
+	)
+	(label "US_LEFT_ECHO"
+		(at 63.5 43.18 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "e3c131a2-6e81-40df-9a89-3bc256eac1d2")
+	)
+	(label "US_LEFT_TRIG"
+		(at 63.5 45.72 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "67b1410b-29a1-4ec2-841d-d053cdc7f2ce")
+	)
+	(label "US_BACK_ECHO"
+		(at 63.5 48.26 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "8d2627a3-5d3b-4dee-bc07-4538f79c6087")
+	)
+	(label "US_BACK_TRIG"
+		(at 63.5 50.8 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "b5c651c0-27c9-444c-91a4-54efb88d5a74")
+	)
+	(label "US_FRONT_ECHO"
+		(at 63.5 53.34 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "d2cc36ea-2d81-4b41-97c3-e0f4c68fcb86")
+	)
+	(label "US_FRONT_TRIG"
+		(at 63.5 55.88 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "491ca863-e664-4b36-a0d0-56606ca64651")
+	)
+	(label "I2C_SDA"
+		(at 63.5 58.42 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "ab73ba2a-e715-4739-a43d-20ce6e681c9b")
+	)
+	(label "I2S_DIN"
+		(at 63.5 68.58 0)
+		(effects (font (size 1.524 1.524)))
+		(uuid "67fba6a1-cbb5-4459-9175-a5e4ca16b95f")
 	)
 	(sheet_instances
 		(path "/"
