@@ -1,198 +1,90 @@
 (kicad_sch
-	(version 20250316)
-	(generator "kicad-mcp-pro")
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
 	(uuid "8a09b215-3de3-42dd-ba8d-6891067f794f")
-	(paper "A4")
+	(paper "A3")
 	(title_block
 		(title "Elderly Companion Robot")
-		(date "2025-05-16")
-		(rev "1.0")
+		(date "2025-05-15")
 		(company "yuHz23")
 	)
 	(lib_symbols)
 	(sheet
-		(at 25.4 25.4)
-		(size 30.48 20.32)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(color 0 0 0 1)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
 		(uuid "a1b2c3d4-1111-2222-3333-444455556666")
+		(sheetname "Power_Supply")
+		(sheetfile "power_supply.kicad_sch")
 		(property "Sheetname" "Power_Supply"
-			(at 25.4 24.8846 0)
+			(at 25.4 25.4 0)
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 2.54 2.54)
 				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "power_supply.kicad_sch"
-			(at 25.4 46.3296 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
 			)
 		)
 	)
 	(sheet
-		(at 152.4 25.4)
-		(size 30.48 20.32)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(color 0 0 0 1)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "a1b2c3d4-1111-2222-3333-444455557777")
-		(property "Sheetname" "MCU_Core"
-			(at 152.4 24.8846 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "mcu_core.kicad_sch"
-			(at 152.4 46.3296 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-	)
-	(sheet
-		(at 279.4 25.4)
-		(size 30.48 20.32)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(color 0 0 0 1)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "a1b2c3d4-1111-2222-3333-444455558888")
-		(property "Sheetname" "Motor_Driver"
-			(at 279.4 24.8846 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "motor_driver.kicad_sch"
-			(at 279.4 46.3296 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-	)
-	(sheet
-		(at 25.4 177.8)
-		(size 30.48 20.32)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(color 0 0 0 1)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
 		(uuid "a1b2c3d4-1111-2222-3333-444455559999")
+		(sheetname "Sensors")
+		(sheetfile "sensors.kicad_sch")
 		(property "Sheetname" "Sensors"
-			(at 25.4 177.2846 0)
+			(at 25.4 76.2 0)
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 2.54 2.54)
 				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "sensors.kicad_sch"
-			(at 25.4 198.7296 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
 			)
 		)
 	)
 	(sheet
-		(at 152.4 177.8)
-		(size 30.48 20.32)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(color 0 0 0 1)
+		(uuid "a1b2c3d4-1111-2222-3333-444455557777")
+		(sheetname "MCU_Core")
+		(sheetfile "mcu_core.kicad_sch")
+		(property "Sheetname" "MCU_Core"
+			(at 25.4 127 0)
+			(effects
+				(font
+					(size 2.54 2.54)
+				)
+			)
 		)
-		(fill
-			(color 0 0 0 0)
-		)
+	)
+	(sheet
 		(uuid "a1b2c3d4-1111-2222-3333-444455550001")
+		(sheetname "Audio")
+		(sheetfile "audio.kicad_sch")
 		(property "Sheetname" "Audio"
-			(at 152.4 177.2846 0)
+			(at 127 25.4 0)
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 2.54 2.54)
 				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "audio.kicad_sch"
-			(at 152.4 198.7296 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
 			)
 		)
 	)
 	(sheet
-		(at 279.4 177.8)
-		(size 30.48 20.32)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(color 0 0 0 1)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "a1b2c3d4-1111-2222-3333-444455550002")
-		(property "Sheetname" "Camera_Dock"
-			(at 279.4 177.2846 0)
+		(uuid "a1b2c3d4-1111-2222-3333-444455558888")
+		(sheetname "Motor_Driver")
+		(sheetfile "motor_driver.kicad_sch")
+		(property "Sheetname" "Motor_Driver"
+			(at 127 76.2 0)
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 2.54 2.54)
 				)
-				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "camera_dock.kicad_sch"
-			(at 279.4 198.7296 0)
+	)
+	(sheet
+		(uuid "a1b2c3d4-1111-2222-3333-444455550002")
+		(sheetname "Camera_Dock")
+		(sheetfile "camera_dock.kicad_sch")
+		(property "Sheetname" "Camera_Dock"
+			(at 127 127 0)
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 2.54 2.54)
 				)
-				(justify left bottom)
 			)
 		)
 	)
@@ -201,4 +93,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )

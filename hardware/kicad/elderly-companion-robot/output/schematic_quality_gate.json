@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-05-16T01:50:48",
+    "ignored_checks": [
+        {
+            "description": "Global label only appears once in the schematic",
+            "key": "single_global_label"
+        },
+        {
+            "description": "Four connection points are joined together",
+            "key": "four_way_junction"
+        },
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.1",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f",
+            "violations": []
+        },
+        {
+            "path": "/Power_Supply/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f/a1b2c3d4-1111-2222-3333-444455556666",
+            "violations": []
+        },
+        {
+            "path": "/Sensors/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f/a1b2c3d4-1111-2222-3333-444455559999",
+            "violations": []
+        },
+        {
+            "path": "/MCU_Core/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f/a1b2c3d4-1111-2222-3333-444455557777",
+            "violations": []
+        },
+        {
+            "path": "/Audio/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f/a1b2c3d4-1111-2222-3333-444455550001",
+            "violations": []
+        },
+        {
+            "path": "/Motor_Driver/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f/a1b2c3d4-1111-2222-3333-444455558888",
+            "violations": []
+        },
+        {
+            "path": "/Camera_Dock/",
+            "uuid_path": "/8a09b215-3de3-42dd-ba8d-6891067f794f/a1b2c3d4-1111-2222-3333-444455550002",
+            "violations": []
+        }
+    ],
+    "source": "elderly-companion-robot.kicad_sch"
+}
