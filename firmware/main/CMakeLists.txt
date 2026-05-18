@@ -30,4 +30,5 @@ idf_component_register(
         task_oled
         task_behavior
         robot_mqtt
+        self_test
 )

@@ -40,6 +40,7 @@
 #include "task_behavior.h"
 #include "task_oled.h"
 #include "robot_mqtt.h"
+#include "self_test.h"
 
 static const char *TAG = "smoke";
 
@@ -652,6 +653,46 @@ static esp_err_t bhv_leave_handler(httpd_req_t *req)
     return reply_ok(req, NULL);
 }
 
+// ---------------------------------------------------------------------------
+// Diagnostic HTTP API
+// ---------------------------------------------------------------------------
+
+static esp_err_t diag_selftest_handler(httpd_req_t *req)
+{
+    bool pulse = read_query_int(req, "motor_pulse", 0) != 0;
+    char *buf = malloc(2048);
+    if (!buf) {
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "no mem");
+        return ESP_FAIL;
+    }
+    size_t n = self_test_run(buf, 2048, pulse);
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    esp_err_t r = httpd_resp_send(req, buf, n);
+    free(buf);
+    return r;
+}
+
+static esp_err_t diag_tasklist_handler(httpd_req_t *req)
+{
+    // pcTaskList writes a fixed-width text table; allocate generously.
+    char *buf = malloc(2048);
+    if (!buf) {
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "no mem");
+        return ESP_FAIL;
+    }
+#if (configUSE_TRACE_FACILITY == 1)
+    vTaskList(buf);
+#else
+    snprintf(buf, 2048, "configUSE_TRACE_FACILITY=0 — enable in sdkconfig to view");
+#endif
+    httpd_resp_set_type(req, "text/plain");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    esp_err_t r = httpd_resp_send(req, buf, strlen(buf));
+    free(buf);
+    return r;
+}
+
 static esp_err_t audio_wav_handler(httpd_req_t *req)
 {
     size_t n;
@@ -765,6 +806,15 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    <div class=st id=st>loading...</div>"
 "  </div>"
 "</div>"
+"<div class=panel style='margin-top:14px'>"
+"  <label>Diagnostics</label>"
+"  <div style='margin-bottom:8px'>"
+"    <button onclick='runST(false)'>Self-test (safe)</button>"
+"    <button class=alt onclick='runST(true)'>Self-test + motor pulse</button>"
+"    <a href='/diag/tasklist' style='color:#0af;margin-left:8px' target='_blank'>FreeRTOS task list</a>"
+"  </div>"
+"  <div class=st id=dg>(click button to run)</div>"
+"</div>"
 "<script>"
 "const f=u=>fetch(u);"
 "const setPan=v=>{document.getElementById('pv').textContent=v;f('/ptz/pan?angle='+v)};"
@@ -808,6 +858,17 @@ static esp_err_t root_handler(httpd_req_t *req)
 "const dkLeave=()=>fetch('/dock/leave');"
 "const dkCancel=()=>fetch('/dock/cancel');"
 "const bv=(c)=>fetch('/behavior/'+c);"
+"async function runST(pulse){"
+"  const out=document.getElementById('dg');"
+"  out.textContent='running...';"
+"  try{const r=await fetch('/diag/selftest?motor_pulse='+(pulse?1:0));"
+"    const j=await r.json();"
+"    let lines=[];"
+"    for(const [k,v] of Object.entries(j.checks))"
+"      lines.push((v.pass?'PASS':'FAIL').padEnd(5)+' '+k.padEnd(16)+'  '+v.detail);"
+"    out.textContent=lines.join('\\n');"
+"  }catch(e){out.textContent='error: '+e}"
+"}"
 "// Status + sensor refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
@@ -902,6 +963,8 @@ static void web_server_start(void)
     httpd_uri_t bvpt = { .uri = "/behavior/patrol", .method = HTTP_GET, .handler = bhv_patrol_handler };
     httpd_uri_t bvdk = { .uri = "/behavior/dock",   .method = HTTP_GET, .handler = bhv_dock_handler };
     httpd_uri_t bvlv = { .uri = "/behavior/leave",  .method = HTTP_GET, .handler = bhv_leave_handler };
+    httpd_uri_t dgs  = { .uri = "/diag/selftest", .method = HTTP_GET, .handler = diag_selftest_handler };
+    httpd_uri_t dgt  = { .uri = "/diag/tasklist", .method = HTTP_GET, .handler = diag_tasklist_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -935,6 +998,8 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &bvpt);
     httpd_register_uri_handler(server, &bvdk);
     httpd_register_uri_handler(server, &bvlv);
+    httpd_register_uri_handler(server, &dgs);
+    httpd_register_uri_handler(server, &dgt);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
