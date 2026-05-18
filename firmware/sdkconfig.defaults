@@ -1,0 +1,93 @@
+# ESP-IDF default config — Elderly Companion Robot
+# ==================================================
+# Loaded on first build; overrides the framework defaults.
+# To override per-developer, create sdkconfig.local (gitignored).
+
+#
+# CPU & flash
+#
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+
+#
+# PSRAM — Octal 8MB, MUST match ESP32-S3-CAM N16R8 hardware
+#
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_TYPE_AUTO=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_BOOT_INIT=y
+CONFIG_SPIRAM_IGNORE_NOTFOUND=n
+CONFIG_SPIRAM_USE_MALLOC=y
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=16384
+CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
+
+#
+# Partition table
+#
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_OFFSET=0x8000
+
+#
+# USB-CDC for serial console (ESP32-S3 native USB)
+#
+CONFIG_ESP_CONSOLE_USB_CDC=y
+CONFIG_ESP_CONSOLE_USB_CDC_SUPPORT_ETS_PRINTF=y
+
+#
+# Log level — INFO in prod, DEBUG when developing
+#
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+CONFIG_LOG_COLORS=y
+
+#
+# Camera (esp32-camera component from Espressif)
+#
+CONFIG_CAMERA_CORE0=y
+
+#
+# FreeRTOS — increase tick to 1ms for responsive nav/dock control
+#
+CONFIG_FREERTOS_HZ=1000
+CONFIG_FREERTOS_USE_TICKLESS_IDLE=y
+
+#
+# WiFi — buffers sized for camera streaming
+#
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=32
+CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=32
+CONFIG_ESP_WIFI_TX_BA_WIN=16
+
+#
+# Brownout — set low so a transient buck droop doesn't reboot
+# (rail spec says < 50mV ripple, but motor inrush can dip briefly)
+#
+CONFIG_ESP_BROWNOUT_DET_LVL_SEL_2=y
+
+#
+# Watchdog — task WDT 5s; we manage long-running camera frames manually
+#
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=5
+CONFIG_ESP_TASK_WDT_PANIC=y
+
+#
+# Coredump to flash (post-mortem debug)
+#
+CONFIG_ESP_COREDUMP_ENABLE_TO_FLASH=y
+CONFIG_ESP_COREDUMP_DATA_FORMAT_ELF=y
+CONFIG_ESP_COREDUMP_DECODE=y
+
+#
+# mbedTLS — keep small, no exotic ciphers needed
+#
+CONFIG_MBEDTLS_DEFAULT_MEM_ALLOC=y
+CONFIG_MBEDTLS_DYNAMIC_BUFFER=y
+
+#
+# Newlib — use nano printf to save flash
+#
+CONFIG_NEWLIB_NANO_FORMAT=y
