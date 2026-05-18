@@ -23,4 +23,7 @@ idf_component_register(
         task_audio
         sim800l
         task_sos
+        battery
+        ir_dock
+        task_dock
 )

@@ -34,6 +34,9 @@
 #include "audio_i2s.h"
 #include "task_sos.h"
 #include "sim800l.h"
+#include "task_dock.h"
+#include "battery.h"
+#include "ir_dock.h"
 
 static const char *TAG = "smoke";
 
@@ -216,7 +219,7 @@ static esp_err_t status_handler(httpd_req_t *req)
     char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":8,"
+        "\"phase\":9,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -565,6 +568,49 @@ static esp_err_t sim800_hangup_handler(httpd_req_t *req)
     return reply_ok(req, NULL);
 }
 
+// ---------------------------------------------------------------------------
+// Dock HTTP API
+// ---------------------------------------------------------------------------
+
+static esp_err_t dock_state_handler(httpd_req_t *req)
+{
+    char buf[256];
+    int n = snprintf(buf, sizeof(buf),
+        "{\"state\":%d,\"state_name\":\"%s\","
+        "\"battery\":{\"v\":%.2f,\"pct\":%u,\"charging\":%s,\"full\":%s,\"low\":%s},"
+        "\"ir_beacon\":%u}",
+        (int)task_dock_state(), task_dock_state_name(),
+        battery_voltage(), battery_percent(),
+        battery_is_charging() ? "true" : "false",
+        battery_is_full()     ? "true" : "false",
+        battery_is_low()      ? "true" : "false",
+        ir_dock_signal_strength(50));
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, buf, n);
+}
+
+static esp_err_t dock_start_handler(httpd_req_t *req)
+{
+    if (!task_dock_request_dock()) {
+        httpd_resp_send_err(req, HTTPD_409_CONFLICT, "dock already in progress");
+        return ESP_FAIL;
+    }
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t dock_cancel_handler(httpd_req_t *req)
+{
+    task_dock_request_cancel();
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t dock_leave_handler(httpd_req_t *req)
+{
+    task_dock_request_leave();
+    return reply_ok(req, NULL);
+}
+
 static esp_err_t audio_wav_handler(httpd_req_t *req)
 {
     size_t n;
@@ -644,6 +690,15 @@ static esp_err_t root_handler(httpd_req_t *req)
 "</div>"
 "<div class=row>"
 "  <div class=panel>"
+"    <label>Dock & charging</label>"
+"    <div class=st id=dk>loading...</div>"
+"    <div style='margin-top:8px'>"
+"      <button onclick='dkStart()'>Auto-dock</button>"
+"      <button class=alt onclick='dkLeave()'>Leave dock</button>"
+"      <button class=stop onclick='dkCancel()'>Cancel</button>"
+"    </div>"
+"  </div>"
+"  <div class=panel>"
 "    <label>SOS — emergency contacts</label>"
 "    <label>Phone 1 (E.164 e.g. +84909...)</label>"
 "    <input id=p1 type=tel placeholder='+84909123456' style='width:100%;padding:6px;background:#222;color:#eee;border:1px solid #444;border-radius:4px'>"
@@ -698,6 +753,9 @@ static esp_err_t root_handler(httpd_req_t *req)
 "  fetch('/sos/config?phone1='+p1+'&phone2='+p2);"
 "}"
 "function trigSos(){if(confirm('Send TEST SOS to configured contacts?'))fetch('/sos/trigger');}"
+"const dkStart=()=>fetch('/dock/start');"
+"const dkLeave=()=>fetch('/dock/leave');"
+"const dkCancel=()=>fetch('/dock/cancel');"
 "// Status + sensor refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
@@ -710,6 +768,12 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    'uptime     '+j.uptime_s+' s\\n'+"
 "    'free heap  '+(j.free_heap/1024|0)+' KB'"
 "  }catch(e){}"
+"  try{const r=await fetch('/dock/state');const d=await r.json();"
+"    document.getElementById('dk').textContent="
+"      'state    '+d.state_name+'\\n'+"
+"      'battery  '+d.battery.v.toFixed(2)+'V  '+d.battery.pct+'%'+(d.battery.charging?' [CHG]':'')+(d.battery.full?' [FULL]':'')+(d.battery.low?' [LOW!]':'')+'\\n'+"
+"      'ir beam  '+d.ir_beacon+'/100';"
+"  }catch(e){document.getElementById('dk').textContent='(no data)'}"
 "  try{const r=await fetch('/sim800/status');const m=await r.json();"
 "    const stMap={0:'OFF',1:'POWERING',2:'READY',3:'FAULT'};"
 "    document.getElementById('st').textContent+="
@@ -774,6 +838,10 @@ static void web_server_start(void)
     httpd_uri_t mhup = { .uri = "/sim800/hangup",     .method = HTTP_GET, .handler = sim800_hangup_handler };
     httpd_uri_t scf  = { .uri = "/sos/config",        .method = HTTP_GET, .handler = sos_config_handler };
     httpd_uri_t strg = { .uri = "/sos/trigger",       .method = HTTP_GET, .handler = sos_trigger_handler };
+    httpd_uri_t dks  = { .uri = "/dock/state",   .method = HTTP_GET, .handler = dock_state_handler };
+    httpd_uri_t dkd  = { .uri = "/dock/start",   .method = HTTP_GET, .handler = dock_start_handler };
+    httpd_uri_t dkc  = { .uri = "/dock/cancel",  .method = HTTP_GET, .handler = dock_cancel_handler };
+    httpd_uri_t dkl  = { .uri = "/dock/leave",   .method = HTTP_GET, .handler = dock_leave_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -798,6 +866,10 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &mhup);
     httpd_register_uri_handler(server, &scf);
     httpd_register_uri_handler(server, &strg);
+    httpd_register_uri_handler(server, &dks);
+    httpd_register_uri_handler(server, &dkd);
+    httpd_register_uri_handler(server, &dkc);
+    httpd_register_uri_handler(server, &dkl);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -837,6 +909,10 @@ void smoke_test_run(void)
     // for network registration). The HTTP server starts immediately
     // below regardless.
     task_sos_start();
+
+    // Phase 9: auto-dock state machine. Battery + IR receiver init runs
+    // inside; uses task_navigation for motion so motors stay watchdog-safe.
+    task_dock_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");
