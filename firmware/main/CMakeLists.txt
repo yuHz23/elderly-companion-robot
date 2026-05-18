@@ -19,4 +19,6 @@ idf_component_register(
         task_navigation
         task_sensor_fusion
         mpu6050
+        audio_i2s
+        task_audio
 )

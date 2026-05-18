@@ -30,6 +30,8 @@
 #include "task_navigation.h"
 #include "task_sensor_fusion.h"
 #include "mpu6050.h"
+#include "task_audio.h"
+#include "audio_i2s.h"
 
 static const char *TAG = "smoke";
 
@@ -212,7 +214,7 @@ static esp_err_t status_handler(httpd_req_t *req)
     char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":6,"
+        "\"phase\":7,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -398,6 +400,100 @@ static esp_err_t sensors_calibrate_imu_handler(httpd_req_t *req)
     return reply_ok(req, ok ? "\"saved\":true" : "\"saved\":false");
 }
 
+// ---------------------------------------------------------------------------
+// Audio HTTP API
+// ---------------------------------------------------------------------------
+
+static esp_err_t audio_tone_handler(httpd_req_t *req)
+{
+    int freq = read_query_int(req, "freq", 1000);
+    int ms   = read_query_int(req, "ms",   500);
+    int vol  = read_query_int(req, "vol",  50);
+    if (freq < 50 || freq > 8000 || ms < 50 || ms > 5000 || vol < 0 || vol > 100) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST,
+            "freq 50..8000, ms 50..5000, vol 0..100");
+        return ESP_FAIL;
+    }
+    if (!task_audio_request_tone(freq, ms, vol)) {
+        httpd_resp_send_err(req, HTTPD_409_CONFLICT, "audio busy");
+        return ESP_FAIL;
+    }
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t audio_loopback_handler(httpd_req_t *req)
+{
+    int ms = read_query_int(req, "ms", 3000);
+    if (ms < 200 || ms > 10000) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "ms 200..10000");
+        return ESP_FAIL;
+    }
+    if (!task_audio_request_loopback(ms)) {
+        httpd_resp_send_err(req, HTTPD_409_CONFLICT, "audio busy");
+        return ESP_FAIL;
+    }
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t audio_record_handler(httpd_req_t *req)
+{
+    int ms = read_query_int(req, "ms", 3000);
+    if (ms < 200 || ms > 10000) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "ms 200..10000");
+        return ESP_FAIL;
+    }
+    if (!task_audio_request_record(ms)) {
+        httpd_resp_send_err(req, HTTPD_409_CONFLICT, "audio busy");
+        return ESP_FAIL;
+    }
+    return reply_ok(req, NULL);
+}
+
+// Minimal RIFF/WAV header for 16-bit mono PCM
+static void make_wav_header(uint8_t hdr[44], uint32_t sr, uint32_t data_bytes)
+{
+    uint32_t byte_rate   = sr * AUDIO_BYTES_PER_SAMPLE;
+    uint32_t block_align = AUDIO_BYTES_PER_SAMPLE;
+    uint32_t chunk_size  = 36 + data_bytes;
+    memcpy(hdr + 0,  "RIFF", 4);
+    hdr[4]  = chunk_size;       hdr[5]  = chunk_size >> 8;
+    hdr[6]  = chunk_size >> 16; hdr[7]  = chunk_size >> 24;
+    memcpy(hdr + 8,  "WAVE", 4);
+    memcpy(hdr + 12, "fmt ", 4);
+    hdr[16] = 16; hdr[17]=0; hdr[18]=0; hdr[19]=0;   // PCM chunk size
+    hdr[20] = 1;  hdr[21]=0;                         // format = PCM
+    hdr[22] = 1;  hdr[23]=0;                         // channels = 1
+    hdr[24] = sr;            hdr[25] = sr >> 8;
+    hdr[26] = sr >> 16;      hdr[27] = sr >> 24;
+    hdr[28] = byte_rate;     hdr[29] = byte_rate >> 8;
+    hdr[30] = byte_rate >> 16; hdr[31] = byte_rate >> 24;
+    hdr[32] = block_align; hdr[33] = 0;
+    hdr[34] = 16; hdr[35] = 0;                       // bits per sample
+    memcpy(hdr + 36, "data", 4);
+    hdr[40] = data_bytes;       hdr[41] = data_bytes >> 8;
+    hdr[42] = data_bytes >> 16; hdr[43] = data_bytes >> 24;
+}
+
+static esp_err_t audio_wav_handler(httpd_req_t *req)
+{
+    size_t n;
+    const int16_t *buf = task_audio_last_recording(&n);
+    if (!buf || n == 0) {
+        httpd_resp_send_err(req, HTTPD_404_NOT_FOUND, "no recording — POST /audio/record first");
+        return ESP_FAIL;
+    }
+    uint32_t data_bytes = n * AUDIO_BYTES_PER_SAMPLE;
+    uint8_t hdr[44];
+    make_wav_header(hdr, AUDIO_SAMPLE_RATE_HZ, data_bytes);
+
+    httpd_resp_set_type(req, "audio/wav");
+    httpd_resp_set_hdr(req, "Content-Disposition", "attachment; filename=\"recording.wav\"");
+    httpd_resp_send_chunk(req, (const char *)hdr, sizeof(hdr));
+    httpd_resp_send_chunk(req, (const char *)buf, data_bytes);
+    httpd_resp_send_chunk(req, NULL, 0);
+    return ESP_OK;
+}
+
 static esp_err_t root_handler(httpd_req_t *req)
 {
     static const char html[] =
@@ -447,9 +543,17 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    <div style='margin-top:8px'><button class=alt onclick='calIMU()'>Calibrate IMU (board flat)</button></div>"
 "  </div>"
 "  <div class=panel>"
-"    <label>Status</label>"
-"    <div class=st id=st>loading...</div>"
+"    <label>Audio test</label>"
+"    <div><button onclick='tone(440)'>Tone 440Hz</button>"
+"    <button onclick='tone(1000)'>Tone 1kHz</button>"
+"    <button onclick='loop()'>Loopback 3s</button></div>"
+"    <div style='margin-top:8px'><button onclick='rec()'>Record 3s</button>"
+"    <a href='/audio/recording.wav' style='color:#0af;margin-left:8px'>Download WAV</a></div>"
 "  </div>"
+"</div>"
+"<div class=panel style='margin-top:14px'>"
+"  <label>Status</label>"
+"  <div class=st id=st>loading...</div>"
 "</div>"
 "<script>"
 "const f=u=>fetch(u);"
@@ -481,6 +585,9 @@ static esp_err_t root_handler(httpd_req_t *req)
 "document.addEventListener('mousemove',move);document.addEventListener('touchmove',move,{passive:false});"
 "document.addEventListener('mouseup',end);document.addEventListener('touchend',end);"
 "const calIMU=()=>{if(confirm('Robot must be flat and still. Calibrate now?'))fetch('/sensors/calibrate_imu');};"
+"const tone=(hz)=>fetch('/audio/tone?freq='+hz+'&ms=800&vol=60');"
+"const loop=()=>fetch('/audio/loopback?ms=3000');"
+"const rec =()=>fetch('/audio/record?ms=3000');"
 "// Status + sensor refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
@@ -539,6 +646,10 @@ static void web_server_start(void)
     httpd_uri_t dcal = { .uri = "/drive/calibrate", .method = HTTP_GET, .handler = drive_calibrate_handler };
     httpd_uri_t sst  = { .uri = "/sensors/state",      .method = HTTP_GET, .handler = sensors_state_handler };
     httpd_uri_t scal = { .uri = "/sensors/calibrate_imu", .method = HTTP_GET, .handler = sensors_calibrate_imu_handler };
+    httpd_uri_t aton = { .uri = "/audio/tone",      .method = HTTP_GET, .handler = audio_tone_handler };
+    httpd_uri_t alop = { .uri = "/audio/loopback",  .method = HTTP_GET, .handler = audio_loopback_handler };
+    httpd_uri_t arec = { .uri = "/audio/record",    .method = HTTP_GET, .handler = audio_record_handler };
+    httpd_uri_t awav = { .uri = "/audio/recording.wav", .method = HTTP_GET, .handler = audio_wav_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -553,6 +664,10 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &dcal);
     httpd_register_uri_handler(server, &sst);
     httpd_register_uri_handler(server, &scal);
+    httpd_register_uri_handler(server, &aton);
+    httpd_register_uri_handler(server, &alop);
+    httpd_register_uri_handler(server, &arec);
+    httpd_register_uri_handler(server, &awav);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -583,6 +698,9 @@ void smoke_test_run(void)
     // Phase 5: spawn navigation task (motor_init runs inside).
     // Reads sensor queue published by sensor_fusion above.
     task_navigation_start();
+
+    // Phase 7: audio I/O (I2S full-duplex). Foreground commands via HTTP.
+    task_audio_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");
