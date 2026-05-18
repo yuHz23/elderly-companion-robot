@@ -15,4 +15,6 @@ idf_component_register(
         esp32-camera
         servo_pwm
         task_ptz
+        motor_l298n
+        task_navigation
 )

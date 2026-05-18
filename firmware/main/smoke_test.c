@@ -27,6 +27,7 @@
 
 #include "servo_pwm.h"
 #include "task_ptz.h"
+#include "task_navigation.h"
 
 static const char *TAG = "smoke";
 
@@ -206,10 +207,10 @@ static esp_err_t stream_handler(httpd_req_t *req)
 
 static esp_err_t status_handler(httpd_req_t *req)
 {
-    char buf[384];
+    char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":4,"
+        "\"phase\":5,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -218,6 +219,11 @@ static esp_err_t status_handler(httpd_req_t *req)
             "\"pan\":%u,\"tilt\":%u,"
             "\"pan_target\":%u,\"tilt_target\":%u,"
             "\"speed_dps\":%u"
+        "},"
+        "\"drive\":{"
+            "\"linear\":%d,\"angular\":%d,"
+            "\"active\":%s,"
+            "\"left_trim\":%d,\"right_trim\":%d"
         "}"
         "}",
         (unsigned)esp_get_free_heap_size(),
@@ -226,7 +232,10 @@ static esp_err_t status_handler(httpd_req_t *req)
         esp_timer_get_time() / 1000000,
         ptz_get_pan_current(), ptz_get_tilt_current(),
         ptz_get_pan_target(),  ptz_get_tilt_target(),
-        ptz_get_speed());
+        ptz_get_speed(),
+        nav_get_linear(), nav_get_angular(),
+        nav_is_active() ? "true" : "false",
+        nav_get_left_trim(), nav_get_right_trim());
     httpd_resp_set_type(req, "application/json");
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     return httpd_resp_send(req, buf, n);
@@ -319,6 +328,40 @@ static esp_err_t ptz_calibrate_handler(httpd_req_t *req)
     return reply_ok(req, NULL);
 }
 
+// ---------------------------------------------------------------------------
+// Drive HTTP API
+// ---------------------------------------------------------------------------
+
+static esp_err_t drive_velocity_handler(httpd_req_t *req)
+{
+    int linear  = read_query_int(req, "linear",  0);
+    int angular = read_query_int(req, "angular", 0);
+    if (linear < -100 || linear > 100 || angular < -100 || angular > 100) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "linear/angular must be -100..100");
+        return ESP_FAIL;
+    }
+    nav_set_velocity((int8_t)linear, (int8_t)angular);
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t drive_stop_handler(httpd_req_t *req)
+{
+    nav_emergency_stop();
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t drive_calibrate_handler(httpd_req_t *req)
+{
+    int lt = read_query_int(req, "left_trim",  0);
+    int rt = read_query_int(req, "right_trim", 0);
+    if (lt < -10 || lt > 10 || rt < -10 || rt > 10) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "trim must be -10..10");
+        return ESP_FAIL;
+    }
+    nav_set_trim((int8_t)lt, (int8_t)rt);
+    return reply_ok(req, NULL);
+}
+
 static esp_err_t root_handler(httpd_req_t *req)
 {
     static const char html[] =
@@ -332,45 +375,79 @@ static esp_err_t root_handler(httpd_req_t *req)
 ".panel{background:#1e1e1e;padding:14px;border-radius:8px;flex:1 1 280px}"
 "label{display:block;margin:8px 0 4px;font-size:13px;color:#aaa}"
 "input[type=range]{width:100%}"
-"button{background:#2a6;border:0;color:#fff;padding:10px 14px;border-radius:6px;margin:4px 4px 0 0;cursor:pointer}"
+"button{background:#2a6;border:0;color:#fff;padding:10px 14px;border-radius:6px;margin:4px 4px 0 0;cursor:pointer;font-size:14px}"
 "button.alt{background:#444}"
+"button.stop{background:#c33}"
 ".val{display:inline-block;width:36px;text-align:right;color:#0fa;font-family:monospace}"
-".st{font-family:monospace;color:#8ad;font-size:13px;white-space:pre}"
+".st{font-family:monospace;color:#8ad;font-size:13px;white-space:pre;line-height:1.4}"
+"#jpad{position:relative;width:200px;height:200px;background:#222;border-radius:50%;margin:8px auto;touch-action:none;user-select:none}"
+"#jdot{position:absolute;left:80px;top:80px;width:40px;height:40px;background:#2a6;border-radius:50%;transition:none}"
 "</style></head><body>"
-"<h2>Elderly Companion Robot — Phase 4 PTZ</h2>"
+"<h2>Elderly Companion Robot</h2>"
 "<img src='/stream' alt=camera>"
 "<div class=row>"
+"  <div class=panel>"
+"    <label>Drive — drag joystick (release to stop)</label>"
+"    <div id=jpad><div id=jdot></div></div>"
+"    <div style='text-align:center'>"
+"      <button class=stop onclick='dStop()'>Emergency Stop</button>"
+"    </div>"
+"  </div>"
 "  <div class=panel>"
 "    <label>Pan <span class=val id=pv>90</span>&deg;</label>"
 "    <input type=range id=p min=10 max=170 value=90 oninput='setPan(this.value)'>"
 "    <label>Tilt <span class=val id=tv>90</span>&deg;</label>"
 "    <input type=range id=t min=30 max=150 value=90 oninput='setTilt(this.value)'>"
-"    <label>Speed <span class=val id=sv>50</span>&deg;/s</label>"
+"    <label>PTZ speed <span class=val id=sv>50</span>&deg;/s</label>"
 "    <input type=range id=s min=10 max=200 value=50 oninput='setSpd(this.value)'>"
-"    <div style='margin-top:10px'>"
-"      <button onclick='go(\"/ptz/center\")'>Center</button>"
-"      <button class=alt onclick='go(\"/ptz/park\")'>Park</button>"
-"    </div>"
-"  </div>"
-"  <div class=panel>"
-"    <label>Status</label>"
-"    <div class=st id=st>loading...</div>"
+"    <div><button onclick='go(\"/ptz/center\")'>Center</button>"
+"    <button class=alt onclick='go(\"/ptz/park\")'>Park</button></div>"
 "  </div>"
 "</div>"
+"<div class=panel style='margin-top:14px'>"
+"  <label>Status</label>"
+"  <div class=st id=st>loading...</div>"
+"</div>"
 "<script>"
-"const f=(u)=>fetch(u);"
+"const f=u=>fetch(u);"
 "const setPan=v=>{document.getElementById('pv').textContent=v;f('/ptz/pan?angle='+v)};"
 "const setTilt=v=>{document.getElementById('tv').textContent=v;f('/ptz/tilt?angle='+v)};"
 "const setSpd=v=>{document.getElementById('sv').textContent=v;f('/ptz/speed?dps='+v)};"
-"const go=u=>f(u).then(refresh);"
+"const go=u=>f(u);"
+"const dStop=()=>f('/drive/stop');"
+"// 2D joystick — y axis = linear (forward = up = -y), x axis = angular (right = CW)"
+"const pad=document.getElementById('jpad'),dot=document.getElementById('jdot');"
+"let active=false,sendTimer=null,lastLin=0,lastAng=0;"
+"function moveDot(cx,cy){"
+"  const r=pad.getBoundingClientRect();"
+"  const dx=cx-r.left-r.width/2, dy=cy-r.top-r.height/2;"
+"  const mag=Math.min(Math.hypot(dx,dy),r.width/2-20);"
+"  const ang=Math.atan2(dy,dx);"
+"  const x=mag*Math.cos(ang), y=mag*Math.sin(ang);"
+"  dot.style.left=(r.width/2-20+x)+'px';dot.style.top=(r.height/2-20+y)+'px';"
+"  // Map to -100..+100. y is INVERTED (drag up = forward)."
+"  lastLin=Math.round(-y/(r.height/2-20)*100);"
+"  lastAng=Math.round(x/(r.width/2-20)*100);"
+"}"
+"function resetDot(){const r=pad.getBoundingClientRect();dot.style.left=(r.width/2-20)+'px';dot.style.top=(r.height/2-20)+'px';lastLin=0;lastAng=0;}"
+"function sendCmd(){if(active)f('/drive/velocity?linear='+lastLin+'&angular='+lastAng);}"
+"function start(e){active=true;e.preventDefault();sendTimer=setInterval(sendCmd,100);move(e);}"
+"function move(e){if(!active)return;const t=e.touches?e.touches[0]:e;moveDot(t.clientX,t.clientY);}"
+"function end(){active=false;clearInterval(sendTimer);resetDot();f('/drive/stop');}"
+"pad.addEventListener('mousedown',start);pad.addEventListener('touchstart',start,{passive:false});"
+"document.addEventListener('mousemove',move);document.addEventListener('touchmove',move,{passive:false});"
+"document.addEventListener('mouseup',end);document.addEventListener('touchend',end);"
+"// Status refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
 "  document.getElementById('st').textContent="
-"    'pan      '+j.ptz.pan+' / '+j.ptz.pan_target+' deg\\n'+"
-"    'tilt     '+j.ptz.tilt+' / '+j.ptz.tilt_target+' deg\\n'+"
-"    'speed    '+j.ptz.speed_dps+' deg/s\\n'+"
-"    'uptime   '+j.uptime_s+' s\\n'+"
-"    'free heap '+(j.free_heap/1024|0)+' KB'"
+"    'pan        '+j.ptz.pan+' / '+j.ptz.pan_target+' deg\\n'+"
+"    'tilt       '+j.ptz.tilt+' / '+j.ptz.tilt_target+' deg\\n'+"
+"    'ptz speed  '+j.ptz.speed_dps+' deg/s\\n'+"
+"    'drive      lin='+j.drive.linear+' ang='+j.drive.angular+' '+(j.drive.active?'ACTIVE':'idle')+'\\n'+"
+"    'trim       L='+j.drive.left_trim+'%% R='+j.drive.right_trim+'%%\\n'+"
+"    'uptime     '+j.uptime_s+' s\\n'+"
+"    'free heap  '+(j.free_heap/1024|0)+' KB'"
 "  }catch(e){}"
 "}"
 "setInterval(refresh,500);refresh();"
@@ -400,6 +477,9 @@ static void web_server_start(void)
     httpd_uri_t prk  = { .uri = "/ptz/park",    .method = HTTP_GET, .handler = ptz_park_handler };
     httpd_uri_t spd  = { .uri = "/ptz/speed",   .method = HTTP_GET, .handler = ptz_speed_handler };
     httpd_uri_t cal  = { .uri = "/ptz/calibrate", .method = HTTP_GET, .handler = ptz_calibrate_handler };
+    httpd_uri_t dvel = { .uri = "/drive/velocity",  .method = HTTP_GET, .handler = drive_velocity_handler };
+    httpd_uri_t dstp = { .uri = "/drive/stop",      .method = HTTP_GET, .handler = drive_stop_handler };
+    httpd_uri_t dcal = { .uri = "/drive/calibrate", .method = HTTP_GET, .handler = drive_calibrate_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -409,6 +489,9 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &prk);
     httpd_register_uri_handler(server, &spd);
     httpd_register_uri_handler(server, &cal);
+    httpd_register_uri_handler(server, &dvel);
+    httpd_register_uri_handler(server, &dstp);
+    httpd_register_uri_handler(server, &dcal);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -432,6 +515,9 @@ void smoke_test_run(void)
 
     // Phase 4: spawn PTZ task (servo_init runs inside)
     task_ptz_start();
+
+    // Phase 5: spawn navigation task (motor_init runs inside)
+    task_navigation_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");
