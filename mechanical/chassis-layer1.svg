@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Elderly Companion Robot — Chassis Layer 1 (TOP)
+  ================================================
+  Material:  3mm acrylic (cast or extruded)
+  Size:      200 x 150 mm
+  Process:   CO2 laser cut
+  Units:     millimeters (1 user unit = 1mm)
+
+  CONVENTION
+  ----------
+  - Origin (0,0) at TOP-LEFT of SVG.
+  - Robot FRONT direction = TOP of layout (Y = 0 side).
+  - Robot BACK direction  = BOTTOM of layout (Y = 150 side).
+  - RED stroke  = cut line (vector cut, hairline)
+  - BLACK stroke (none used here, see annotations.svg for labels)
+
+  FEATURES
+  --------
+  - 6x standoff holes (M3 clearance, dia 3.2mm) at corners + mid long edges
+  - 1x PTZ servo body cutout (SG90 22x12mm) + 2x M2 mount holes
+  - 4x main PCB mount holes (M3, 80x60 hole pattern)
+  - 1x cable pass-through slot (20x10mm) to layer 2
+
+  All holes use 3.2mm dia for M3 (1.6mm radius)
+                2.2mm dia for M2 (1.1mm radius)
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200mm" height="150mm"
+     viewBox="0 0 200 150"
+     version="1.1">
+
+  <!-- Layer cut style -->
+  <defs>
+    <style>
+      .cut    { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+      .border { fill: none; stroke: #ff0000; stroke-width: 0.15; }
+    </style>
+  </defs>
+
+  <!-- Outer border (200x150 rectangle) -->
+  <rect x="0" y="0" width="200" height="150" class="border"/>
+
+  <!-- ================================================================== -->
+  <!-- STANDOFF HOLES — 6x M3 (dia 3.2mm) — MUST match layer 2 exactly    -->
+  <!-- ================================================================== -->
+  <circle cx="10"  cy="10"  r="1.6" class="cut"/>
+  <circle cx="100" cy="10"  r="1.6" class="cut"/>
+  <circle cx="190" cy="10"  r="1.6" class="cut"/>
+  <circle cx="10"  cy="140" r="1.6" class="cut"/>
+  <circle cx="100" cy="140" r="1.6" class="cut"/>
+  <circle cx="190" cy="140" r="1.6" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- PTZ SERVO MOUNT — SG90 pan servo at FRONT-CENTER                   -->
+  <!-- Body drops through 22x12mm rectangular cutout                       -->
+  <!-- 2x M2 mount holes (dia 2.2mm) on flanges, 28mm apart                -->
+  <!-- ================================================================== -->
+  <rect x="89" y="25" width="22" height="12" class="cut"/>
+  <circle cx="86"  cy="31" r="1.1" class="cut"/>
+  <circle cx="114" cy="31" r="1.1" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- MAIN PCB MOUNT — 4x M3 holes for custom KiCad PCB                  -->
+  <!-- Pattern: 72mm x 52mm (PCB body ~80x60mm with 4mm corner margin)    -->
+  <!-- Centered horizontally, vertically biased toward back               -->
+  <!-- ================================================================== -->
+  <circle cx="64"  cy="54"  r="1.6" class="cut"/>
+  <circle cx="136" cy="54"  r="1.6" class="cut"/>
+  <circle cx="64"  cy="106" r="1.6" class="cut"/>
+  <circle cx="136" cy="106" r="1.6" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- CABLE PASS-THROUGH SLOT — back-left, 20x10mm rounded                -->
+  <!-- Lets harness drop to layer 2 (battery, motors, caster)              -->
+  <!-- ================================================================== -->
+  <rect x="15" y="125" width="20" height="10" rx="2" ry="2" class="cut"/>
+
+</svg>

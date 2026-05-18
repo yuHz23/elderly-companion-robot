@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Elderly Companion Robot — Chassis Layer 2 (BOTTOM)
+  ====================================================
+  Material:  3mm acrylic (cast or extruded)
+  Size:      200 x 150 mm
+  Process:   CO2 laser cut
+  Units:     millimeters
+
+  CONVENTION
+  ----------
+  - Same orientation as layer 1 (FRONT = top of SVG).
+  - Stack assembly: layer 2 is the LOWER deck.
+  - Drive wheels stick out left/right edges (wheel clearance notches).
+  - Caster wheel mounts under FRONT (3-point support: 2 drive + 1 caster).
+
+  FEATURES
+  --------
+  - 6x standoff holes (M3) — IDENTICAL XY positions to layer 1
+  - 2x wheel clearance notches (left/right edges)
+  - 4x BO motor bracket holes (2 per side)
+  - 4x caster wheel mount holes (25mm square pattern, FRONT)
+  - 4x 18650 battery holder mount holes (80x65mm pattern, CENTER)
+  - 1x cable pass-through slot — matches layer 1 position
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200mm" height="150mm"
+     viewBox="0 0 200 150"
+     version="1.1">
+
+  <defs>
+    <style>
+      .cut    { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+      .border { fill: none; stroke: #ff0000; stroke-width: 0.15; }
+    </style>
+  </defs>
+
+  <!-- ================================================================== -->
+  <!-- OUTER OUTLINE — rectangle with wheel notches on left/right          -->
+  <!-- ================================================================== -->
+  <!--
+    Notch geometry: cut 8mm deep × 34mm long on each side at Y=58-92.
+    This lets the wheel rotate without rubbing the chassis edge.
+    Outline drawn as a single path so laser cuts in one stroke.
+  -->
+  <path class="border" d="
+    M 0 0
+    L 200 0
+    L 200 58
+    L 192 58
+    L 192 92
+    L 200 92
+    L 200 150
+    L 0 150
+    L 0 92
+    L 8 92
+    L 8 58
+    L 0 58
+    Z"/>
+
+  <!-- ================================================================== -->
+  <!-- STANDOFF HOLES — 6x M3 — MUST match layer 1                         -->
+  <!-- ================================================================== -->
+  <circle cx="10"  cy="10"  r="1.6" class="cut"/>
+  <circle cx="100" cy="10"  r="1.6" class="cut"/>
+  <circle cx="190" cy="10"  r="1.6" class="cut"/>
+  <circle cx="10"  cy="140" r="1.6" class="cut"/>
+  <circle cx="100" cy="140" r="1.6" class="cut"/>
+  <circle cx="190" cy="140" r="1.6" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- BO MOTOR BRACKETS — 2 holes per side, 20mm vertical spacing         -->
+  <!-- Bracket bolts THROUGH chassis from above (head on top, nut under)   -->
+  <!-- Motor body hangs UNDER chassis, shaft exits through edge notch      -->
+  <!-- ================================================================== -->
+  <!-- Left motor bracket -->
+  <circle cx="14" cy="65" r="1.6" class="cut"/>
+  <circle cx="14" cy="85" r="1.6" class="cut"/>
+  <!-- Right motor bracket -->
+  <circle cx="186" cy="65" r="1.6" class="cut"/>
+  <circle cx="186" cy="85" r="1.6" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- CASTER WHEEL MOUNT — 4x M3 in 25mm square pattern at FRONT-CENTER   -->
+  <!-- ================================================================== -->
+  <circle cx="88"  cy="20" r="1.6" class="cut"/>
+  <circle cx="113" cy="20" r="1.6" class="cut"/>
+  <circle cx="88"  cy="45" r="1.6" class="cut"/>
+  <circle cx="113" cy="45" r="1.6" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- 18650 BATTERY HOLDER MOUNT — 4x M3 in 70x65mm pattern, CENTER       -->
+  <!-- Body of holder ~80x70mm; mount holes 5mm in from each corner        -->
+  <!-- ================================================================== -->
+  <circle cx="65"  cy="58"  r="1.6" class="cut"/>
+  <circle cx="135" cy="58"  r="1.6" class="cut"/>
+  <circle cx="65"  cy="123" r="1.6" class="cut"/>
+  <circle cx="135" cy="123" r="1.6" class="cut"/>
+
+  <!-- ================================================================== -->
+  <!-- CABLE PASS-THROUGH SLOT — matches layer 1 position                  -->
+  <!-- ================================================================== -->
+  <rect x="15" y="125" width="20" height="10" rx="2" ry="2" class="cut"/>
+
+</svg>
