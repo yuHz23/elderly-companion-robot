@@ -32,6 +32,8 @@
 #include "mpu6050.h"
 #include "task_audio.h"
 #include "audio_i2s.h"
+#include "task_sos.h"
+#include "sim800l.h"
 
 static const char *TAG = "smoke";
 
@@ -214,7 +216,7 @@ static esp_err_t status_handler(httpd_req_t *req)
     char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":7,"
+        "\"phase\":8,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -474,6 +476,95 @@ static void make_wav_header(uint8_t hdr[44], uint32_t sr, uint32_t data_bytes)
     hdr[42] = data_bytes >> 16; hdr[43] = data_bytes >> 24;
 }
 
+// ---------------------------------------------------------------------------
+// SOS / SIM800L HTTP API
+// ---------------------------------------------------------------------------
+
+static int read_query_str(httpd_req_t *req, const char *key, char *out, size_t out_len)
+{
+    size_t qlen = httpd_req_get_url_query_len(req) + 1;
+    if (qlen <= 1) { out[0] = '\0'; return 0; }
+    char *q = malloc(qlen);
+    if (!q) { out[0] = '\0'; return 0; }
+    int rc = 0;
+    if (httpd_req_get_url_query_str(req, q, qlen) == ESP_OK) {
+        if (httpd_query_key_value(q, key, out, out_len) == ESP_OK) rc = strlen(out);
+        else out[0] = '\0';
+    } else out[0] = '\0';
+    free(q);
+    return rc;
+}
+
+static esp_err_t sim800_status_handler(httpd_req_t *req)
+{
+    int csq = sim800_signal_quality();
+    char phone1[SOS_PHONE_MAX_LEN] = {0};
+    char phone2[SOS_PHONE_MAX_LEN] = {0};
+    task_sos_get_phone1(phone1, sizeof(phone1));
+    task_sos_get_phone2(phone2, sizeof(phone2));
+
+    char buf[256];
+    int n = snprintf(buf, sizeof(buf),
+        "{\"state\":%d,\"rssi\":%d,\"registered\":%s,"
+        "\"phone1\":\"%s\",\"phone2\":\"%s\","
+        "\"trigger_count\":%lu}",
+        (int)sim800_state(), csq,
+        sim800_is_registered() ? "true" : "false",
+        phone1, phone2,
+        (unsigned long)task_sos_trigger_count());
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, buf, n);
+}
+
+static esp_err_t sos_config_handler(httpd_req_t *req)
+{
+    char p1[SOS_PHONE_MAX_LEN], p2[SOS_PHONE_MAX_LEN], txt[SOS_SMS_MAX_LEN];
+    int n1 = read_query_str(req, "phone1", p1, sizeof(p1));
+    int n2 = read_query_str(req, "phone2", p2, sizeof(p2));
+    int nt = read_query_str(req, "sms",    txt, sizeof(txt));
+    if (n1) task_sos_set_phone1(p1);
+    if (n2) task_sos_set_phone2(p2);
+    if (nt) task_sos_set_sms_text(txt);
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t sos_trigger_handler(httpd_req_t *req)
+{
+    task_sos_trigger();
+    return reply_ok(req, "\"dispatched\":true");
+}
+
+static esp_err_t sim800_sms_handler(httpd_req_t *req)
+{
+    char phone[SOS_PHONE_MAX_LEN], text[SOS_SMS_MAX_LEN];
+    int np = read_query_str(req, "to",   phone, sizeof(phone));
+    int nt = read_query_str(req, "text", text,  sizeof(text));
+    if (np == 0 || nt == 0) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "need ?to=&text=");
+        return ESP_FAIL;
+    }
+    bool ok = sim800_send_sms(phone, text);
+    return reply_ok(req, ok ? "\"sent\":true" : "\"sent\":false");
+}
+
+static esp_err_t sim800_dial_handler(httpd_req_t *req)
+{
+    char phone[SOS_PHONE_MAX_LEN];
+    if (read_query_str(req, "to", phone, sizeof(phone)) == 0) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "need ?to=");
+        return ESP_FAIL;
+    }
+    bool ok = sim800_dial(phone);
+    return reply_ok(req, ok ? "\"dialed\":true" : "\"dialed\":false");
+}
+
+static esp_err_t sim800_hangup_handler(httpd_req_t *req)
+{
+    sim800_hangup();
+    return reply_ok(req, NULL);
+}
+
 static esp_err_t audio_wav_handler(httpd_req_t *req)
 {
     size_t n;
@@ -551,9 +642,22 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    <a href='/audio/recording.wav' style='color:#0af;margin-left:8px'>Download WAV</a></div>"
 "  </div>"
 "</div>"
-"<div class=panel style='margin-top:14px'>"
-"  <label>Status</label>"
-"  <div class=st id=st>loading...</div>"
+"<div class=row>"
+"  <div class=panel>"
+"    <label>SOS — emergency contacts</label>"
+"    <label>Phone 1 (E.164 e.g. +84909...)</label>"
+"    <input id=p1 type=tel placeholder='+84909123456' style='width:100%;padding:6px;background:#222;color:#eee;border:1px solid #444;border-radius:4px'>"
+"    <label>Phone 2 (optional)</label>"
+"    <input id=p2 type=tel placeholder='+84909987654' style='width:100%;padding:6px;background:#222;color:#eee;border:1px solid #444;border-radius:4px'>"
+"    <div style='margin-top:8px'>"
+"      <button onclick='saveSos()'>Save contacts</button>"
+"      <button class=stop onclick='trigSos()'>TRIGGER SOS (test)</button>"
+"    </div>"
+"  </div>"
+"  <div class=panel>"
+"    <label>Status</label>"
+"    <div class=st id=st>loading...</div>"
+"  </div>"
 "</div>"
 "<script>"
 "const f=u=>fetch(u);"
@@ -588,6 +692,12 @@ static esp_err_t root_handler(httpd_req_t *req)
 "const tone=(hz)=>fetch('/audio/tone?freq='+hz+'&ms=800&vol=60');"
 "const loop=()=>fetch('/audio/loopback?ms=3000');"
 "const rec =()=>fetch('/audio/record?ms=3000');"
+"function saveSos(){"
+"  const p1=encodeURIComponent(document.getElementById('p1').value);"
+"  const p2=encodeURIComponent(document.getElementById('p2').value);"
+"  fetch('/sos/config?phone1='+p1+'&phone2='+p2);"
+"}"
+"function trigSos(){if(confirm('Send TEST SOS to configured contacts?'))fetch('/sos/trigger');}"
 "// Status + sensor refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
@@ -599,6 +709,14 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    'trim       L='+j.drive.left_trim+'%% R='+j.drive.right_trim+'%%\\n'+"
 "    'uptime     '+j.uptime_s+' s\\n'+"
 "    'free heap  '+(j.free_heap/1024|0)+' KB'"
+"  }catch(e){}"
+"  try{const r=await fetch('/sim800/status');const m=await r.json();"
+"    const stMap={0:'OFF',1:'POWERING',2:'READY',3:'FAULT'};"
+"    document.getElementById('st').textContent+="
+"      '\\nsim800     '+stMap[m.state]+' rssi='+m.rssi+(m.registered?' registered':' NOT registered')+"
+"      '\\nsos        '+m.phone1+(m.phone2?' / '+m.phone2:'')+' (triggers='+m.trigger_count+')';"
+"    if(!document.getElementById('p1').value)document.getElementById('p1').value=m.phone1||'';"
+"    if(!document.getElementById('p2').value)document.getElementById('p2').value=m.phone2||'';"
 "  }catch(e){}"
 "  try{const r=await fetch('/sensors/state');const s=await r.json();"
 "  const fmt=v=>v>=65535?'---':v+'cm';"
@@ -650,6 +768,12 @@ static void web_server_start(void)
     httpd_uri_t alop = { .uri = "/audio/loopback",  .method = HTTP_GET, .handler = audio_loopback_handler };
     httpd_uri_t arec = { .uri = "/audio/record",    .method = HTTP_GET, .handler = audio_record_handler };
     httpd_uri_t awav = { .uri = "/audio/recording.wav", .method = HTTP_GET, .handler = audio_wav_handler };
+    httpd_uri_t mst  = { .uri = "/sim800/status",     .method = HTTP_GET, .handler = sim800_status_handler };
+    httpd_uri_t msms = { .uri = "/sim800/sms",        .method = HTTP_GET, .handler = sim800_sms_handler };
+    httpd_uri_t mdl  = { .uri = "/sim800/dial",       .method = HTTP_GET, .handler = sim800_dial_handler };
+    httpd_uri_t mhup = { .uri = "/sim800/hangup",     .method = HTTP_GET, .handler = sim800_hangup_handler };
+    httpd_uri_t scf  = { .uri = "/sos/config",        .method = HTTP_GET, .handler = sos_config_handler };
+    httpd_uri_t strg = { .uri = "/sos/trigger",       .method = HTTP_GET, .handler = sos_trigger_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -668,6 +792,12 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &alop);
     httpd_register_uri_handler(server, &arec);
     httpd_register_uri_handler(server, &awav);
+    httpd_register_uri_handler(server, &mst);
+    httpd_register_uri_handler(server, &msms);
+    httpd_register_uri_handler(server, &mdl);
+    httpd_register_uri_handler(server, &mhup);
+    httpd_register_uri_handler(server, &scf);
+    httpd_register_uri_handler(server, &strg);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -701,6 +831,12 @@ void smoke_test_run(void)
 
     // Phase 7: audio I/O (I2S full-duplex). Foreground commands via HTTP.
     task_audio_start();
+
+    // Phase 8: cellular SOS — subscribes to fall events from sensor task.
+    // Power-on of SIM800L happens inside the task (slow; takes ~10-30s
+    // for network registration). The HTTP server starts immediately
+    // below regardless.
+    task_sos_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");

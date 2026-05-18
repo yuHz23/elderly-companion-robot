@@ -21,4 +21,6 @@ idf_component_register(
         mpu6050
         audio_i2s
         task_audio
+        sim800l
+        task_sos
 )
