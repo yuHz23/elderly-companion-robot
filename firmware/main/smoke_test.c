@@ -37,6 +37,9 @@
 #include "task_dock.h"
 #include "battery.h"
 #include "ir_dock.h"
+#include "task_behavior.h"
+#include "task_oled.h"
+#include "robot_mqtt.h"
 
 static const char *TAG = "smoke";
 
@@ -219,7 +222,7 @@ static esp_err_t status_handler(httpd_req_t *req)
     char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":9,"
+        "\"phase\":10,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -611,6 +614,44 @@ static esp_err_t dock_leave_handler(httpd_req_t *req)
     return reply_ok(req, NULL);
 }
 
+// ---------------------------------------------------------------------------
+// Behavior FSM HTTP API
+// ---------------------------------------------------------------------------
+
+static esp_err_t bhv_state_handler(httpd_req_t *req)
+{
+    char buf[96];
+    int n = snprintf(buf, sizeof(buf), "{\"state\":%d,\"name\":\"%s\"}",
+                     (int)task_behavior_state(), task_behavior_state_name());
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, buf, n);
+}
+
+static esp_err_t bhv_idle_handler(httpd_req_t *req)
+{
+    task_behavior_request_idle();
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t bhv_patrol_handler(httpd_req_t *req)
+{
+    task_behavior_request_patrol();
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t bhv_dock_handler(httpd_req_t *req)
+{
+    task_behavior_request_dock();
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t bhv_leave_handler(httpd_req_t *req)
+{
+    task_behavior_request_leave();
+    return reply_ok(req, NULL);
+}
+
 static esp_err_t audio_wav_handler(httpd_req_t *req)
 {
     size_t n;
@@ -653,6 +694,16 @@ static esp_err_t root_handler(httpd_req_t *req)
 "#jdot{position:absolute;left:80px;top:80px;width:40px;height:40px;background:#2a6;border-radius:50%;transition:none}"
 "</style></head><body>"
 "<h2>Elderly Companion Robot</h2>"
+"<div class=panel style='margin-bottom:14px'>"
+"  <label>Behavior</label>"
+"  <div class=st id=bv>loading...</div>"
+"  <div style='margin-top:8px'>"
+"    <button onclick='bv(\"idle\")'>Idle</button>"
+"    <button onclick='bv(\"patrol\")'>Patrol</button>"
+"    <button class=alt onclick='bv(\"dock\")'>Return home</button>"
+"    <button class=alt onclick='bv(\"leave\")'>Leave dock</button>"
+"  </div>"
+"</div>"
 "<img src='/stream' alt=camera>"
 "<div class=row>"
 "  <div class=panel>"
@@ -756,6 +807,7 @@ static esp_err_t root_handler(httpd_req_t *req)
 "const dkStart=()=>fetch('/dock/start');"
 "const dkLeave=()=>fetch('/dock/leave');"
 "const dkCancel=()=>fetch('/dock/cancel');"
+"const bv=(c)=>fetch('/behavior/'+c);"
 "// Status + sensor refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
@@ -767,6 +819,9 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    'trim       L='+j.drive.left_trim+'%% R='+j.drive.right_trim+'%%\\n'+"
 "    'uptime     '+j.uptime_s+' s\\n'+"
 "    'free heap  '+(j.free_heap/1024|0)+' KB'"
+"  }catch(e){}"
+"  try{const r=await fetch('/behavior/state');const b=await r.json();"
+"    document.getElementById('bv').textContent='current: '+b.name;"
 "  }catch(e){}"
 "  try{const r=await fetch('/dock/state');const d=await r.json();"
 "    document.getElementById('dk').textContent="
@@ -842,6 +897,11 @@ static void web_server_start(void)
     httpd_uri_t dkd  = { .uri = "/dock/start",   .method = HTTP_GET, .handler = dock_start_handler };
     httpd_uri_t dkc  = { .uri = "/dock/cancel",  .method = HTTP_GET, .handler = dock_cancel_handler };
     httpd_uri_t dkl  = { .uri = "/dock/leave",   .method = HTTP_GET, .handler = dock_leave_handler };
+    httpd_uri_t bvst = { .uri = "/behavior/state",  .method = HTTP_GET, .handler = bhv_state_handler };
+    httpd_uri_t bvid = { .uri = "/behavior/idle",   .method = HTTP_GET, .handler = bhv_idle_handler };
+    httpd_uri_t bvpt = { .uri = "/behavior/patrol", .method = HTTP_GET, .handler = bhv_patrol_handler };
+    httpd_uri_t bvdk = { .uri = "/behavior/dock",   .method = HTTP_GET, .handler = bhv_dock_handler };
+    httpd_uri_t bvlv = { .uri = "/behavior/leave",  .method = HTTP_GET, .handler = bhv_leave_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -870,6 +930,11 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &dkd);
     httpd_register_uri_handler(server, &dkc);
     httpd_register_uri_handler(server, &dkl);
+    httpd_register_uri_handler(server, &bvst);
+    httpd_register_uri_handler(server, &bvid);
+    httpd_register_uri_handler(server, &bvpt);
+    httpd_register_uri_handler(server, &bvdk);
+    httpd_register_uri_handler(server, &bvlv);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -913,6 +978,15 @@ void smoke_test_run(void)
     // Phase 9: auto-dock state machine. Battery + IR receiver init runs
     // inside; uses task_navigation for motion so motors stay watchdog-safe.
     task_dock_start();
+
+    // Phase 10: OLED status display + top-level behavior FSM.
+    // OLED first so the screen lights up as soon as possible during
+    // integration test. Behavior FSM last because it consumes everything.
+    task_oled_start();
+    task_behavior_start();
+
+    // Optional: MQTT only fires up if broker_uri is set in NVS.
+    mqtt_client_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");

@@ -26,4 +26,8 @@ idf_component_register(
         battery
         ir_dock
         task_dock
+        ssd1306
+        task_oled
+        task_behavior
+        robot_mqtt
 )
