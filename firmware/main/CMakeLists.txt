@@ -13,4 +13,6 @@ idf_component_register(
         esp_timer
         driver
         esp32-camera
+        servo_pwm
+        task_ptz
 )

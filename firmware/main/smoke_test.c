@@ -9,6 +9,7 @@
 
 #include "smoke_test.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 #include "esp_camera.h"
@@ -23,6 +24,9 @@
 #include "freertos/event_groups.h"
 #include "freertos/task.h"
 #include "nvs.h"
+
+#include "servo_pwm.h"
+#include "task_ptz.h"
 
 static const char *TAG = "smoke";
 
@@ -202,37 +206,177 @@ static esp_err_t stream_handler(httpd_req_t *req)
 
 static esp_err_t status_handler(httpd_req_t *req)
 {
-    char buf[256];
+    char buf[384];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":3,"
+        "\"phase\":4,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
-        "\"uptime_s\":%lld"
+        "\"uptime_s\":%lld,"
+        "\"ptz\":{"
+            "\"pan\":%u,\"tilt\":%u,"
+            "\"pan_target\":%u,\"tilt_target\":%u,"
+            "\"speed_dps\":%u"
+        "}"
         "}",
         (unsigned)esp_get_free_heap_size(),
         (unsigned)esp_get_minimum_free_heap_size(),
         (unsigned)(esp_psram_get_size() / (1024 * 1024)),
-        esp_timer_get_time() / 1000000);
+        esp_timer_get_time() / 1000000,
+        ptz_get_pan_current(), ptz_get_tilt_current(),
+        ptz_get_pan_target(),  ptz_get_tilt_target(),
+        ptz_get_speed());
     httpd_resp_set_type(req, "application/json");
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     return httpd_resp_send(req, buf, n);
 }
 
+// ---------------------------------------------------------------------------
+// PTZ HTTP API
+// ---------------------------------------------------------------------------
+
+static int read_query_int(httpd_req_t *req, const char *key, int defval)
+{
+    size_t qlen = httpd_req_get_url_query_len(req) + 1;
+    if (qlen <= 1) return defval;
+    char *q = malloc(qlen);
+    if (!q) return defval;
+    if (httpd_req_get_url_query_str(req, q, qlen) != ESP_OK) {
+        free(q);
+        return defval;
+    }
+    char val[16] = {0};
+    int result = defval;
+    if (httpd_query_key_value(q, key, val, sizeof(val)) == ESP_OK) {
+        result = atoi(val);
+    }
+    free(q);
+    return result;
+}
+
+static esp_err_t reply_ok(httpd_req_t *req, const char *extra_json)
+{
+    char buf[128];
+    int n = snprintf(buf, sizeof(buf), "{\"ok\":true%s%s}",
+                     extra_json ? "," : "",
+                     extra_json ? extra_json : "");
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, buf, n);
+}
+
+static esp_err_t ptz_pan_handler(httpd_req_t *req)
+{
+    int angle = read_query_int(req, "angle", -1);
+    if (angle < 0 || angle > 180) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "angle must be 0..180");
+        return ESP_FAIL;
+    }
+    ptz_set_pan_target((uint8_t)angle);
+    char extra[32];
+    snprintf(extra, sizeof(extra), "\"target\":%d", angle);
+    return reply_ok(req, extra);
+}
+
+static esp_err_t ptz_tilt_handler(httpd_req_t *req)
+{
+    int angle = read_query_int(req, "angle", -1);
+    if (angle < 0 || angle > 180) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "angle must be 0..180");
+        return ESP_FAIL;
+    }
+    ptz_set_tilt_target((uint8_t)angle);
+    char extra[32];
+    snprintf(extra, sizeof(extra), "\"target\":%d", angle);
+    return reply_ok(req, extra);
+}
+
+static esp_err_t ptz_center_handler(httpd_req_t *req)  { ptz_center(); return reply_ok(req, NULL); }
+static esp_err_t ptz_park_handler(httpd_req_t *req)    { ptz_park();   return reply_ok(req, NULL); }
+
+static esp_err_t ptz_speed_handler(httpd_req_t *req)
+{
+    int dps = read_query_int(req, "dps", -1);
+    if (dps < 10 || dps > 200) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "dps must be 10..200");
+        return ESP_FAIL;
+    }
+    ptz_set_speed((uint16_t)dps);
+    return reply_ok(req, NULL);
+}
+
+static esp_err_t ptz_calibrate_handler(httpd_req_t *req)
+{
+    int pan_off  = read_query_int(req, "pan_offset",  0);
+    int tilt_off = read_query_int(req, "tilt_offset", 0);
+    if (pan_off < -10 || pan_off > 10 || tilt_off < -10 || tilt_off > 10) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "offset must be -10..10");
+        return ESP_FAIL;
+    }
+    servo_set_offset(SERVO_PAN,  (int8_t)pan_off);
+    servo_set_offset(SERVO_TILT, (int8_t)tilt_off);
+    return reply_ok(req, NULL);
+}
+
 static esp_err_t root_handler(httpd_req_t *req)
 {
-    const char *html =
-        "<!doctype html><html><head><title>Elderly Bot — Phase 3</title>"
-        "<style>body{font-family:sans-serif;background:#111;color:#eee;padding:20px}"
-        "img{max-width:100%;border-radius:8px}</style></head>"
-        "<body><h2>Elderly Companion Robot — Phase 3 smoke test</h2>"
-        "<p>Camera stream:</p>"
-        "<img src=\"/stream\" alt=\"camera\"/>"
-        "<p><a href=\"/status\" style=\"color:#0af\">JSON status</a></p>"
-        "</body></html>";
+    static const char html[] =
+"<!doctype html><html><head><title>Elderly Bot</title>"
+"<meta name=viewport content='width=device-width,initial-scale=1'>"
+"<style>"
+"body{font-family:sans-serif;background:#111;color:#eee;padding:14px;margin:0;max-width:780px}"
+"h2{margin:0 0 12px}"
+"img{width:100%;border-radius:8px;display:block}"
+".row{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap}"
+".panel{background:#1e1e1e;padding:14px;border-radius:8px;flex:1 1 280px}"
+"label{display:block;margin:8px 0 4px;font-size:13px;color:#aaa}"
+"input[type=range]{width:100%}"
+"button{background:#2a6;border:0;color:#fff;padding:10px 14px;border-radius:6px;margin:4px 4px 0 0;cursor:pointer}"
+"button.alt{background:#444}"
+".val{display:inline-block;width:36px;text-align:right;color:#0fa;font-family:monospace}"
+".st{font-family:monospace;color:#8ad;font-size:13px;white-space:pre}"
+"</style></head><body>"
+"<h2>Elderly Companion Robot — Phase 4 PTZ</h2>"
+"<img src='/stream' alt=camera>"
+"<div class=row>"
+"  <div class=panel>"
+"    <label>Pan <span class=val id=pv>90</span>&deg;</label>"
+"    <input type=range id=p min=10 max=170 value=90 oninput='setPan(this.value)'>"
+"    <label>Tilt <span class=val id=tv>90</span>&deg;</label>"
+"    <input type=range id=t min=30 max=150 value=90 oninput='setTilt(this.value)'>"
+"    <label>Speed <span class=val id=sv>50</span>&deg;/s</label>"
+"    <input type=range id=s min=10 max=200 value=50 oninput='setSpd(this.value)'>"
+"    <div style='margin-top:10px'>"
+"      <button onclick='go(\"/ptz/center\")'>Center</button>"
+"      <button class=alt onclick='go(\"/ptz/park\")'>Park</button>"
+"    </div>"
+"  </div>"
+"  <div class=panel>"
+"    <label>Status</label>"
+"    <div class=st id=st>loading...</div>"
+"  </div>"
+"</div>"
+"<script>"
+"const f=(u)=>fetch(u);"
+"const setPan=v=>{document.getElementById('pv').textContent=v;f('/ptz/pan?angle='+v)};"
+"const setTilt=v=>{document.getElementById('tv').textContent=v;f('/ptz/tilt?angle='+v)};"
+"const setSpd=v=>{document.getElementById('sv').textContent=v;f('/ptz/speed?dps='+v)};"
+"const go=u=>f(u).then(refresh);"
+"async function refresh(){"
+"  try{const r=await fetch('/status');const j=await r.json();"
+"  document.getElementById('st').textContent="
+"    'pan      '+j.ptz.pan+' / '+j.ptz.pan_target+' deg\\n'+"
+"    'tilt     '+j.ptz.tilt+' / '+j.ptz.tilt_target+' deg\\n'+"
+"    'speed    '+j.ptz.speed_dps+' deg/s\\n'+"
+"    'uptime   '+j.uptime_s+' s\\n'+"
+"    'free heap '+(j.free_heap/1024|0)+' KB'"
+"  }catch(e){}"
+"}"
+"setInterval(refresh,500);refresh();"
+"</script></body></html>";
     httpd_resp_set_type(req, "text/html");
-    return httpd_resp_send(req, html, strlen(html));
+    return httpd_resp_send(req, html, sizeof(html) - 1);
 }
 
 static void web_server_start(void)
@@ -247,12 +391,24 @@ static void web_server_start(void)
         ESP_LOGE(TAG, "HTTP server start failed");
         return;
     }
-    httpd_uri_t root = { .uri = "/",       .method = HTTP_GET, .handler = root_handler };
-    httpd_uri_t st   = { .uri = "/status", .method = HTTP_GET, .handler = status_handler };
-    httpd_uri_t str  = { .uri = "/stream", .method = HTTP_GET, .handler = stream_handler };
+    httpd_uri_t root = { .uri = "/",            .method = HTTP_GET, .handler = root_handler };
+    httpd_uri_t st   = { .uri = "/status",      .method = HTTP_GET, .handler = status_handler };
+    httpd_uri_t str  = { .uri = "/stream",      .method = HTTP_GET, .handler = stream_handler };
+    httpd_uri_t pan  = { .uri = "/ptz/pan",     .method = HTTP_GET, .handler = ptz_pan_handler };
+    httpd_uri_t tilt = { .uri = "/ptz/tilt",    .method = HTTP_GET, .handler = ptz_tilt_handler };
+    httpd_uri_t ctr  = { .uri = "/ptz/center",  .method = HTTP_GET, .handler = ptz_center_handler };
+    httpd_uri_t prk  = { .uri = "/ptz/park",    .method = HTTP_GET, .handler = ptz_park_handler };
+    httpd_uri_t spd  = { .uri = "/ptz/speed",   .method = HTTP_GET, .handler = ptz_speed_handler };
+    httpd_uri_t cal  = { .uri = "/ptz/calibrate", .method = HTTP_GET, .handler = ptz_calibrate_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
+    httpd_register_uri_handler(server, &pan);
+    httpd_register_uri_handler(server, &tilt);
+    httpd_register_uri_handler(server, &ctr);
+    httpd_register_uri_handler(server, &prk);
+    httpd_register_uri_handler(server, &spd);
+    httpd_register_uri_handler(server, &cal);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -273,6 +429,9 @@ void smoke_test_run(void)
         ESP_LOGE(TAG, "Camera init failed — Phase 3 NOT passing");
         return;
     }
+
+    // Phase 4: spawn PTZ task (servo_init runs inside)
+    task_ptz_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");
