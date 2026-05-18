@@ -28,6 +28,8 @@
 #include "servo_pwm.h"
 #include "task_ptz.h"
 #include "task_navigation.h"
+#include "task_sensor_fusion.h"
+#include "mpu6050.h"
 
 static const char *TAG = "smoke";
 
@@ -210,7 +212,7 @@ static esp_err_t status_handler(httpd_req_t *req)
     char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":5,"
+        "\"phase\":6,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -362,6 +364,40 @@ static esp_err_t drive_calibrate_handler(httpd_req_t *req)
     return reply_ok(req, NULL);
 }
 
+// ---------------------------------------------------------------------------
+// Sensor HTTP API
+// ---------------------------------------------------------------------------
+
+static esp_err_t sensors_state_handler(httpd_req_t *req)
+{
+    sensor_state_t s;
+    if (!sensors_get_state(&s)) {
+        httpd_resp_send_err(req, HTTPD_503_SERVICE_UNAVAILABLE, "no sensor data yet");
+        return ESP_FAIL;
+    }
+    char buf[512];
+    int n = snprintf(buf, sizeof(buf),
+        "{"
+        "\"dist\":{\"front\":%u,\"back\":%u,\"left\":%u,\"right\":%u},"
+        "\"imu\":{\"pitch\":%.1f,\"roll\":%.1f,\"tilt\":%.1f,\"accel_g\":%.2f},"
+        "\"fall\":%s,"
+        "\"age_ms\":%lld"
+        "}",
+        s.dist_front_cm, s.dist_back_cm, s.dist_left_cm, s.dist_right_cm,
+        s.pitch_deg, s.roll_deg, s.tilt_deg, s.accel_mag_g,
+        s.fall_detected ? "true" : "false",
+        (esp_timer_get_time() - s.timestamp_us) / 1000);
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, buf, n);
+}
+
+static esp_err_t sensors_calibrate_imu_handler(httpd_req_t *req)
+{
+    bool ok = mpu6050_calibrate_now();
+    return reply_ok(req, ok ? "\"saved\":true" : "\"saved\":false");
+}
+
 static esp_err_t root_handler(httpd_req_t *req)
 {
     static const char html[] =
@@ -404,9 +440,16 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    <button class=alt onclick='go(\"/ptz/park\")'>Park</button></div>"
 "  </div>"
 "</div>"
-"<div class=panel style='margin-top:14px'>"
-"  <label>Status</label>"
-"  <div class=st id=st>loading...</div>"
+"<div class=row>"
+"  <div class=panel>"
+"    <label>Sensors</label>"
+"    <div class=st id=sn>loading...</div>"
+"    <div style='margin-top:8px'><button class=alt onclick='calIMU()'>Calibrate IMU (board flat)</button></div>"
+"  </div>"
+"  <div class=panel>"
+"    <label>Status</label>"
+"    <div class=st id=st>loading...</div>"
+"  </div>"
 "</div>"
 "<script>"
 "const f=u=>fetch(u);"
@@ -437,7 +480,8 @@ static esp_err_t root_handler(httpd_req_t *req)
 "pad.addEventListener('mousedown',start);pad.addEventListener('touchstart',start,{passive:false});"
 "document.addEventListener('mousemove',move);document.addEventListener('touchmove',move,{passive:false});"
 "document.addEventListener('mouseup',end);document.addEventListener('touchend',end);"
-"// Status refresh"
+"const calIMU=()=>{if(confirm('Robot must be flat and still. Calibrate now?'))fetch('/sensors/calibrate_imu');};"
+"// Status + sensor refresh"
 "async function refresh(){"
 "  try{const r=await fetch('/status');const j=await r.json();"
 "  document.getElementById('st').textContent="
@@ -449,6 +493,19 @@ static esp_err_t root_handler(httpd_req_t *req)
 "    'uptime     '+j.uptime_s+' s\\n'+"
 "    'free heap  '+(j.free_heap/1024|0)+' KB'"
 "  }catch(e){}"
+"  try{const r=await fetch('/sensors/state');const s=await r.json();"
+"  const fmt=v=>v>=65535?'---':v+'cm';"
+"  document.getElementById('sn').textContent="
+"    '           '+fmt(s.dist.front)+'\\n'+"
+"    '  front\\n'+"
+"    '  '+fmt(s.dist.left)+'  <robot>  '+fmt(s.dist.right)+'\\n'+"
+"    '  back\\n'+"
+"    '           '+fmt(s.dist.back)+'\\n'+"
+"    '\\n'+"
+"    'pitch '+s.imu.pitch.toFixed(1)+'  roll '+s.imu.roll.toFixed(1)+'  tilt '+s.imu.tilt.toFixed(1)+'\\n'+"
+"    'accel '+s.imu.accel_g.toFixed(2)+'g'+(s.fall?'  ⚠ FALL':'')+'\\n'+"
+"    'age   '+s.age_ms+'ms'"
+"  }catch(e){document.getElementById('sn').textContent='(no data)'}"
 "}"
 "setInterval(refresh,500);refresh();"
 "</script></body></html>";
@@ -480,6 +537,8 @@ static void web_server_start(void)
     httpd_uri_t dvel = { .uri = "/drive/velocity",  .method = HTTP_GET, .handler = drive_velocity_handler };
     httpd_uri_t dstp = { .uri = "/drive/stop",      .method = HTTP_GET, .handler = drive_stop_handler };
     httpd_uri_t dcal = { .uri = "/drive/calibrate", .method = HTTP_GET, .handler = drive_calibrate_handler };
+    httpd_uri_t sst  = { .uri = "/sensors/state",      .method = HTTP_GET, .handler = sensors_state_handler };
+    httpd_uri_t scal = { .uri = "/sensors/calibrate_imu", .method = HTTP_GET, .handler = sensors_calibrate_imu_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -492,6 +551,8 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &dvel);
     httpd_register_uri_handler(server, &dstp);
     httpd_register_uri_handler(server, &dcal);
+    httpd_register_uri_handler(server, &sst);
+    httpd_register_uri_handler(server, &scal);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -516,7 +577,11 @@ void smoke_test_run(void)
     // Phase 4: spawn PTZ task (servo_init runs inside)
     task_ptz_start();
 
-    // Phase 5: spawn navigation task (motor_init runs inside)
+    // Phase 6: sensor fusion BEFORE nav so the obstacle gate has data
+    task_sensor_fusion_start();
+
+    // Phase 5: spawn navigation task (motor_init runs inside).
+    // Reads sensor queue published by sensor_fusion above.
     task_navigation_start();
 
     web_server_start();

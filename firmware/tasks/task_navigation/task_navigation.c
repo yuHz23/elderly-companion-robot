@@ -25,6 +25,7 @@
 #include "nvs.h"
 
 #include "motor_l298n.h"
+#include "task_sensor_fusion.h"
 
 static const char *TAG = "nav";
 
@@ -151,8 +152,25 @@ static void nav_task(void *arg)
                 if (ts != 0) ESP_LOGW(TAG, "watchdog expired — brake");
             }
         } else {
-            int left  = linear + angular;
-            int right = linear - angular;
+            // Obstacle avoidance gate: throttle linear velocity based on
+            // the distance reported by the sensor in the direction we're
+            // moving. Rotation is always allowed so the robot can find
+            // an escape route on its own.
+            sensor_state_t s;
+            int gated_linear = linear;
+            if (sensors_get_state(&s)) {
+                if (linear > 0) {
+                    if (s.dist_front_cm < OBSTACLE_BRAKE_CM)      gated_linear = 0;
+                    else if (s.dist_front_cm < OBSTACLE_SLOW_CM)
+                        gated_linear = linear * s.dist_front_cm / OBSTACLE_SLOW_CM;
+                } else if (linear < 0) {
+                    if (s.dist_back_cm < OBSTACLE_BRAKE_CM)       gated_linear = 0;
+                    else if (s.dist_back_cm < OBSTACLE_SLOW_CM)
+                        gated_linear = linear * s.dist_back_cm / OBSTACLE_SLOW_CM;
+                }
+            }
+            int left  = gated_linear + angular;
+            int right = gated_linear - angular;
             apply_trim_and_drive(left, right);
             s_active = true;
         }

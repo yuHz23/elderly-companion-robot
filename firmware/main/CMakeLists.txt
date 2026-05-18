@@ -17,4 +17,6 @@ idf_component_register(
         task_ptz
         motor_l298n
         task_navigation
+        task_sensor_fusion
+        mpu6050
 )
