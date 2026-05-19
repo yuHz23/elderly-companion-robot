@@ -41,6 +41,8 @@
 #include "task_oled.h"
 #include "robot_mqtt.h"
 #include "self_test.h"
+#include "task_mqtt.h"
+#include "task_schedule.h"
 
 static const char *TAG = "smoke";
 
@@ -223,7 +225,7 @@ static esp_err_t status_handler(httpd_req_t *req)
     char buf[512];
     int n = snprintf(buf, sizeof(buf),
         "{"
-        "\"phase\":10,"
+        "\"phase\":12,"
         "\"free_heap\":%u,"
         "\"min_free_heap\":%u,"
         "\"psram_size_mb\":%u,"
@@ -673,6 +675,70 @@ static esp_err_t diag_selftest_handler(httpd_req_t *req)
     return r;
 }
 
+// ---------------------------------------------------------------------------
+// Deploy: MQTT broker config + schedule
+// ---------------------------------------------------------------------------
+
+static esp_err_t mqtt_config_handler(httpd_req_t *req)
+{
+    char uri[128];
+    int n = read_query_str(req, "uri", uri, sizeof(uri));
+    nvs_handle_t h;
+    if (nvs_open("mqtt", NVS_READWRITE, &h) != ESP_OK) {
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "nvs open failed");
+        return ESP_FAIL;
+    }
+    if (n > 0) nvs_set_str(h, "broker_uri", uri);
+    else       nvs_erase_key(h, "broker_uri");
+    nvs_commit(h);
+    nvs_close(h);
+    return reply_ok(req, "\"reboot_required\":true");
+}
+
+static esp_err_t schedule_list_handler(httpd_req_t *req)
+{
+    char buf[512];
+    int n = snprintf(buf, sizeof(buf),
+                     "{\"synced\":%s,\"entries\":[",
+                     sntp_time_synced() ? "true" : "false");
+    for (uint8_t i = 0; i < SCHED_ENTRY_COUNT; ++i) {
+        sched_entry_t e;
+        bool ok = task_schedule_get(i, &e);
+        if (i > 0) n += snprintf(buf + n, sizeof(buf) - n, ",");
+        if (!ok) {
+            n += snprintf(buf + n, sizeof(buf) - n, "null");
+        } else {
+            n += snprintf(buf + n, sizeof(buf) - n,
+                          "{\"h\":%u,\"m\":%u,\"cmd\":\"%s\"}",
+                          e.hour, e.minute, e.cmd);
+        }
+    }
+    n += snprintf(buf + n, sizeof(buf) - n, "]}");
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, buf, n);
+}
+
+static esp_err_t schedule_set_handler(httpd_req_t *req)
+{
+    int idx = read_query_int(req, "i", -1);
+    int hr  = read_query_int(req, "h", -1);
+    int mn  = read_query_int(req, "m", -1);
+    char cmd[SCHED_CMD_MAX_LEN] = {0};
+    read_query_str(req, "cmd", cmd, sizeof(cmd));
+
+    if (idx < 0 || idx >= SCHED_ENTRY_COUNT || hr < 0 || hr > 23 ||
+        mn < 0 || mn > 59 || cmd[0] == 0) {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST,
+            "need i 0..5, h 0..23, m 0..59, cmd");
+        return ESP_FAIL;
+    }
+    sched_entry_t e = { .hour = (uint8_t)hr, .minute = (uint8_t)mn };
+    strncpy(e.cmd, cmd, sizeof(e.cmd) - 1);
+    bool ok = task_schedule_set((uint8_t)idx, &e);
+    return reply_ok(req, ok ? "\"saved\":true" : "\"saved\":false");
+}
+
 static esp_err_t diag_tasklist_handler(httpd_req_t *req)
 {
     // pcTaskList writes a fixed-width text table; allocate generously.
@@ -965,6 +1031,9 @@ static void web_server_start(void)
     httpd_uri_t bvlv = { .uri = "/behavior/leave",  .method = HTTP_GET, .handler = bhv_leave_handler };
     httpd_uri_t dgs  = { .uri = "/diag/selftest", .method = HTTP_GET, .handler = diag_selftest_handler };
     httpd_uri_t dgt  = { .uri = "/diag/tasklist", .method = HTTP_GET, .handler = diag_tasklist_handler };
+    httpd_uri_t mqcf = { .uri = "/mqtt/config",   .method = HTTP_GET, .handler = mqtt_config_handler };
+    httpd_uri_t schl = { .uri = "/schedule",      .method = HTTP_GET, .handler = schedule_list_handler };
+    httpd_uri_t schs = { .uri = "/schedule/set",  .method = HTTP_GET, .handler = schedule_set_handler };
     httpd_register_uri_handler(server, &root);
     httpd_register_uri_handler(server, &st);
     httpd_register_uri_handler(server, &str);
@@ -1000,6 +1069,9 @@ static void web_server_start(void)
     httpd_register_uri_handler(server, &bvlv);
     httpd_register_uri_handler(server, &dgs);
     httpd_register_uri_handler(server, &dgt);
+    httpd_register_uri_handler(server, &mqcf);
+    httpd_register_uri_handler(server, &schl);
+    httpd_register_uri_handler(server, &schs);
     ESP_LOGI(TAG, "HTTP server up — visit http://<ip>/");
 }
 
@@ -1052,6 +1124,11 @@ void smoke_test_run(void)
 
     // Optional: MQTT only fires up if broker_uri is set in NVS.
     mqtt_client_start();
+    task_mqtt_start();   // publisher loop (idle if broker not configured)
+
+    // Phase 12: daily routine scheduler (uses SNTP, seeds defaults to NVS
+    // on first boot — see task_schedule.c).
+    task_schedule_start();
 
     web_server_start();
     ESP_LOGI(TAG, "smoke test ready");

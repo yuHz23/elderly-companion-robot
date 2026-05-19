@@ -31,4 +31,6 @@ idf_component_register(
         task_behavior
         robot_mqtt
         self_test
+        task_mqtt
+        task_schedule
 )
